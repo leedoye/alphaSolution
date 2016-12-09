@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시판 수정</title>
+</head>
+<body>
+<h6> 교육센터 통합 운영관리 시스템 - 게시판 관리 - 게시판 수정</h6>
+
+<h3>게시판 수정</h3>
+
+<form>
+	<fieldset>
+		<legend>
+			게시판 수정
+		</legend>
+		
+		<table>
+			<tr>
+				<td>유형</td>
+				<td>
+					<SELECT id="kindOfbulletinBoard">
+						<OPTION selected>공지사항</OPTION>
+						<OPTION >자유게시판</OPTION>
+						<OPTION>자료실</OPTION>
+						<OPTION>수강후기</OPTION>
+						<OPTION>질문과 답변</OPTION>
+						<OPTION>FAQ</OPTION>
+					</SELECT>
+				</td>
+			</tr>
+			<tr>
+				<td>게시판 명</td>
+				<td><input type="text" id=bulletinBoard></td>
+			</tr>
+			<tr>
+				<td>설명</td>
+				<td><textarea id=explanation> </textarea></td>
+			</tr>
+		</table>
+		
+		<div>
+			<input type="button" id=addBtn value="수정">
+			<input type="button" id=cancelBtn value="취소">
+		</div>
+	</fieldset>
+</form>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시글 상세 조회</title>
+</head>
+<body>
+
+<h6> 교육센터 통합 운영관리 시스템 - 게시글 관리 - 게시글 상세 조회</h6>
+
+<h3>게시글제목</h3>
+<hr>
+
+<form>
+	<div align=right>
+		<input type=button id=modifyBtn value="수정"> <input type=button id=deleteBtn value="삭제">
+	</div>
+	<fieldset>
+		<textarea>
+		
+		</textarea>		
+		<table border="1" cellspacing=0>
+			<tr>
+				<td>작성자</td>
+				<td>이도예 </td>
+				
+			</tr>
+			<tr>
+				<td>게시일</td>
+				<td>2016년 10월 3일</td>
+			</tr>
+			<tr>
+				<td>공개범위</td>
+				<td>센터공개</td>
+			</tr>
+			<tr>
+				<td>첨부파일</td>
+				<td>첨부파일명</td>
+			</tr>
+			
+		</table>
+		
+		<div>
+			<input type="button" id=backBtn value="이전">
+			
+		</div>
+	</fieldset>
+	
+	<div>
+		<table>
+			<tr>
+				<td >홍길동</td>
+				<td >댓글내용</td>
+				<td>댓글작성일자</td>
+			</tr>
+			
+			<tr >
+				<td  align=right colspan=3><input type="button" id=commentModifyBtn > <input type="button" id=commentDeleteBtn ></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<textarea rows="3" cols="60" placeholder="댓글을 작성해주세요"></textarea><br>
+		<input type="button" id=addBtn value="댓글작성">
+	</div>
+</form>
+
+</body>
+</html>
