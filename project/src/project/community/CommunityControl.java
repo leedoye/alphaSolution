@@ -1,174 +1,203 @@
 package project.community;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CommunityControl {
- 
-   static final String id = "root";
-   static final String passwd="1234";
-   static final String driverName = "com.mysql.jdbc.Driver";
-   static final String dbURL = "jdbc:mysql://localhost:3306/software" ; // µğºñ ½ºÅ°¸¶ ºÎºĞ ´Ùµé ¸¸µé¶§ software
-   
-   public static int count = 1;
-   
-   Connection con = null;
-   Statement stmt = null;
-   ResultSet rs = null;
-   PreparedStatement pstmt = null;
-   
-   String dbTable = "bulletinboard";
-   
-   public CommunityControl(){
-	   try{
-		   
-		   Class.forName(driverName);
-		   con = DriverManager.getConnection(dbURL,id, passwd);
-		   
-	   }catch (Exception e){
-		   e.printStackTrace();
-	   }
-   }
-   
-   public void insertCommunity(Community community)
-   {
-      if ( community == null ) 
-         return ;
-      
-      try {
-         
-         String insertQuery = "INSERT INTO `"+ dbTable + "` VALUES(?, ?, ?, ?, ?, ?, ?)";
-         
-         pstmt = con.prepareStatement(insertQuery); // prepareStatement¿¡¼­ ÇØ´ç sqlÀ» ¹Ì¸® ÄÄÆÄÀÏÇÑ´Ù.
-         
-         pstmt.setInt(1,community.communityNo);
-         pstmt.setString(2,community.communityName);
-         pstmt.setString(3,community.openingDate);
-         pstmt.setString(4,community.closingDate);
-         pstmt.setString(5,community.communityExplanation);
-         
-         pstmt.executeUpdate(); //Äõ¸®¸¦ ½ÇÇàÇÑ´Ù.
-         
-      } catch (SQLException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-      
-      System.out.println("Community Å×ÀÌºí¿¡ »õ·Î¿î ·¹ÄÚµå¸¦ Ãß°¡Çß½À´Ï´Ù.");        // ¼º°ø½Ã ¸Ş½ÃÁö Ãâ·Â
-   }
-   
-   public void deleteCommunity(int communityNo)
-   {
-      if (communityNo == 0 )
-         return ;
-      
-      try {
-         
-         
-    	  //ÆóÁöÀÏÀÚ ¼³Á¤
-    	  //update
-    	  
-          System.out.println("¸ğÀÓ¹æ ÆóÁö");
-          
-      } catch (Exception e) {
-         e.printStackTrace();
-         System.out.println(e.getMessage());
-      }
-      
-   }
-   
-   public void updateCommunity(Community community)
-   {
-      
-      try {
-         
-         String sql = "select communityNo from `" + dbTable +"` where communityNo = ?";
-         
-         pstmt = con.prepareStatement(sql);
 
-         pstmt.setInt(1, community.communityNo);
+	static final String id = "root";
+	static final String passwd = "qkqhqkqh2";
+	static final String driverName = "com.mysql.jdbc.Driver";
+	static final String dbURL = "jdbc:mysql://localhost:3306/software"; //ë””ë¹„ìŠ¤í‚¤ë§ˆë¶€ë¶„ë‹¤ë“¤ë§Œë“¤ë•Œsoftware
+	public static int communityNo = 6;
 
-         
-         rs = pstmt.executeQuery();
+	Connection con = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	PreparedStatement pstmt = null;
 
-         
-         if( rs.next() )
-         {
-            
-            int rId= rs.getInt("communityNo");
-            
-            
-            if ( rId == (community.communityNo)  )
-            {
-               
-               
-               //¹Ù²Ù°í ½ÍÀº ¾ÖÆ®¸®ºäÆ®´Â set ´ÙÀ½¿¡ ¸í½ÃµÈ°Í
-               //where ¾ÖÆ®¸®ºäÆ®°¡ ¹Ù²Ù°í ½ÍÀº ÇàÀ» Ã£´Â °Í
-               //updateQuery = "update memberdata set ¹Ù²ÜÇÊµå¸í = ? where ±âº»PK = ?"; 
-      
-               String updateQuery = "update `"+ dbTable +"` set communityNo = ?"
-                     + ", communityName = ?, openingDate = ?, closingDate = ?, communityExplanation = ?";
-               
-               pstmt = con.prepareStatement(updateQuery);
-      
-               pstmt.setInt(1,community.communityNo);
-               pstmt.setString(2,community.communityName);
-               pstmt.setString(3,community.openingDate);
-               pstmt.setString(4,community.closingDate);
-               pstmt.setString(5,community.communityExplanation);
-                        
-               int count = pstmt.executeUpdate();
-               
-               count = pstmt.executeUpdate();
-               System.out.println(count);
-               System.out.println("¸ğÀÓ¹æ Á¤º¸ ¼öÁ¤");
-            }
-         }
-      } catch (Exception e) {
-         e.printStackTrace();
-         System.out.println(e.getMessage());
-      }
-   }
-   
-   public ArrayList<Community> selectCommunity()
-   {
-      ArrayList<Community> arr = new ArrayList<Community>();
-      try
-        {
-         String selectQuery = "SELECT * FROM `"+ dbTable +"`" ;
-         
-            //ÁúÀÇ¸¦ ÇÒ Statement ¸¸µé±â 
-            stmt = con.createStatement();
-            
-            rs = stmt.executeQuery(selectQuery); //Á¶È¸ Äõ¸®°á°ú¸¦ rs¿¡ ³ÖÀ½
-            
-            System.out.println("--- Å×ÀÌºí table ³»¿ë Á¶È¸ ---");
-            
-            //rsÀÇ ³»¿ëÀ» °¡Á®¿È
-            while (rs.next())
-            {
-            	Community a = new Community() ;
-               
-				a.communityNo = rs.getInt(1);
-				a.communityName = rs.getString(2);
-				a.openingDate = rs.getString(3);
-				a.closingDate = rs.getString(4);
-				a.communityExplanation = rs.getString(5);
+	String dbTable = "community";
+
+	public CommunityControl() {
+		try {
+
+			Class.forName(driverName);
+			con = DriverManager.getConnection(dbURL, id, passwd);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/*
+	 * ì‹¤ì œ community ìƒì„±í•  ë•Œì—” communityControlì—ì„œ ì¶”ê°€í•´ì£¼ê³ , ëª¨ì„ë°© ìš´ì˜ì ì°¸ê°€íšŒì› ì¶”ê°€í•´ì£¼ê³ , ëª¨ì„ë°© ê²Œì‹œíŒ
+	 * ì¶”ê°€í•´ì£¼ê¸°
+	 */
+	public void insertCommunity(Community community) {
+		if (community == null)
+			return;
+
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			Calendar c1 = Calendar.getInstance();
+			String today = sdf.format(c1.getTime());
+			
+			String insertQuery = "INSERT INTO `" + dbTable + "` VALUES(?, ?, ?, ?, ?)";
+
+			pstmt = con.prepareStatement(insertQuery);
+
+			pstmt.setInt(1, community.communityNo);
+			pstmt.setString(2, community.communityName);
+			pstmt.setString(3, today);
+			pstmt.setString(4, community.closingDate);
+			pstmt.setString(5, community.communityExplanation);
+
+			pstmt.executeUpdate(); // ì¿¼ë¦¬ë¥¼ ì‹¤í–‰í•œë‹¤.
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println("Community í…Œì´ë¸”ì— ìƒˆë¡œìš´ ë ˆì½”ë“œë¥¼ ì¶”ê°€í–ˆìŠµë‹ˆë‹¤."); // ì„±ê³µì‹œ ë©”ì‹œì§€ ì¶œë ¥
+	}
+
+	public void updateCommunity(Community community) {
+
+		try {
+
+	
+			if( community.closingDate != null ){
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+				Calendar c1 = Calendar.getInstance();
+				String today = sdf.format(c1.getTime());
+
+				String closingDateSettingQuery = "update `" + dbTable + "` set closingDate = ? "
+						+ "where communityNo = ?";
+				pstmt = con.prepareStatement(closingDateSettingQuery);
+
+				pstmt.setString(1, today);
+				pstmt.setInt(2, community.communityNo);
 				
-               arr.add(a);
-            }
-           
-            
-        }
-        catch (Exception e)
-        {            
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-         
-      return arr;
-   }
-   
-   
-   
+				int count = pstmt.executeUpdate();
+				
+				System.out.println(count);
+				return;
+			}
+			
+			String updateQuery = "update `" + dbTable + "` set communityName = ?, openingDate = ?"
+					+ ", communityExplanation = ? where communityNo = ? ";
+
+			pstmt = con.prepareStatement(updateQuery);
+			
+			pstmt.setString(1, community.communityName);
+			pstmt.setString(2, community.openingDate);
+			pstmt.setString(3, community.communityExplanation);
+			pstmt.setInt(4, community.communityNo);
+			
+			pstmt.executeUpdate();
+			
+			System.out.println("ëª¨ì„ë°© ì •ë³´ ìˆ˜ì •");
+		
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public ArrayList<Community> selectCommunity() {
+		
+		ArrayList<Community> arr = new ArrayList<Community>();
+		try {
+			String selectQuery = "SELECT * FROM `" + dbTable + "`";
+
+			// ì§ˆì˜ë¥¼ í•  Statement ë§Œë“¤ê¸°
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(selectQuery); // ì¡°íšŒ ì¿¼ë¦¬ê²°ê³¼ë¥¼ rsì— ë„£ìŒ
+
+			System.out.println("--- í…Œì´ë¸” " + dbTable + " ë‚´ìš© ì¡°íšŒ ---");
+
+			// rsì˜ ë‚´ìš©ì„ ê°€ì ¸ì˜´
+			while (rs.next()) {
+				Community community = new Community();
+
+				community.communityNo = rs.getInt(1);
+				community.communityName = rs.getString(2);
+				community.openingDate = rs.getString(3);
+				community.closingDate = rs.getString(4);
+				community.communityExplanation = rs.getString(5);
+
+				arr.add(community);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return arr;
+	}
+	
+	public Community selectCommunity(String communityNo) {
+		Community community = new Community();
+		
+		try {
+			String selectQuery = "SELECT * FROM `" + dbTable + "` where communityNo = '" + communityNo + "'";
+			
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(selectQuery); 
+
+			while (rs.next()) {
+
+				community.communityNo = rs.getInt(1);
+				community.communityName = rs.getString(2);
+				community.openingDate = rs.getString(3);
+				community.closingDate = rs.getString(4);
+				community.communityExplanation = rs.getString(5);
+
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return community;
+	}
+
+	
+	public static void main(String[] args) {
+		Community community = new Community();
+		
+		community.communityNo = CommunityControl.communityNo;
+		community.communityName = "ëª¨ì„ë°©ì´ë¦„";
+		community.openingDate = "20161210";
+		community.closingDate = null;
+		community.communityExplanation = "ëª¨ì„ë°© ì„¤ëª…~~";
+		
+		// ëª¨ì„ë°© ì¶”ê°€
+		CommunityControl communityControl = new CommunityControl();
+		communityControl.insertCommunity(community);
+		// 1. ëª¨ì„ë°© ìš´ì˜ì ì¶”ê°€í•´ì£¼ê¸°
+		// 2. ëª¨ì„ë°© ê²Œì‹œíŒ ì¶”ê°€í•´ì£¼ê¸° 
+		
+		// ëª¨ì„ë°© ì´ë¦„ í˜¹ì€ ì„¤ëª… ìˆ˜ì •
+		community.communityExplanation = "ëª¨ì„ë°© ì„¤ëª…6";
+		communityControl.updateCommunity(community);
+		
+		// community íì§€ - ëª¨ì„ë°© ìš´ì˜ì íšŒì› íƒˆí‡´ ì‹œ 
+		community.closingDate = "íì§€";
+		communityControl.updateCommunity(community);
+		
+		// selectCommunity
+		ArrayList<Community> communityList;
+		communityList = communityControl.selectCommunity();
+		for (Community com : communityList) {
+			System.out.println(com.communityName);
+		}
+		
+	}
 }

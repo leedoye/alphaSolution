@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class BulletinBoardMessageControl {
 	
 	static final String id = "root";
-	static final String passwd="1234";
+	static final String passwd="qkqhqkqh2";
 	static final String driverName = "com.mysql.jdbc.Driver";
-	static final String dbURL = "jdbc:mysql://localhost:3306/software" ; // 디비 스키마 부분 다들 만들때 software
+	static final String dbURL = "jdbc:mysql://localhost:3306/software" ; // �뵒鍮� �뒪�궎留� 遺�遺� �떎�뱾 留뚮뱾�븣 software
 	
 	public static int count = 1;
 	
@@ -21,7 +21,7 @@ public class BulletinBoardMessageControl {
 	
 	String dbTable = "bulletinboardmessage";
 	
-	// insert into db테이블명 values(?,?,?); -> ? 갯수는 디비에 애트리뷰트의 갯수와 같아야함
+	// insert into db�뀒�씠釉붾챸 values(?,?,?); -> ? 媛��닔�뒗 �뵒鍮꾩뿉 �븷�듃由щ럭�듃�쓽 媛��닔�� 媛숈븘�빞�븿
 	
 	public BulletinBoardMessageControl() {
 		// TODO Auto-generated constructor stub
@@ -45,7 +45,7 @@ public class BulletinBoardMessageControl {
 			
 			String insertQuery = "INSERT INTO `"+ dbTable + "` VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 			
-			pstmt = con.prepareStatement(insertQuery); // prepareStatement에서 해당 sql을 미리 컴파일한다.
+			pstmt = con.prepareStatement(insertQuery); // prepareStatement�뿉�꽌 �빐�떦 sql�쓣 誘몃━ 而댄뙆�씪�븳�떎.
 			
 			pstmt.setInt(1,a.bulletinBoardNum);
 			pstmt.setInt(2,a.bulletinBoardMessageNum);
@@ -56,14 +56,14 @@ public class BulletinBoardMessageControl {
 			pstmt.setString(7,a.attachment);
 			pstmt.setString(8,a.bulletinBoardMessageContent);
 			
-			pstmt.executeUpdate(); //쿼리를 실행한다.
+			pstmt.executeUpdate(); //荑쇰━瑜� �떎�뻾�븳�떎.
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println("BulletinBoardMessage 테이블에 새로운 레코드를 추가했습니다.");        // 성공시 메시지 출력
+		System.out.println("BulletinBoardMessage �뀒�씠釉붿뿉 �깉濡쒖슫 �젅肄붾뱶瑜� 異붽��뻽�뒿�땲�떎.");        // �꽦怨듭떆 硫붿떆吏� 異쒕젰
 	}
 	
 	public void delete(int bulletinBoardMessageNum)
@@ -82,7 +82,7 @@ public class BulletinBoardMessageControl {
 			 
 			 pstmt.executeUpdate();
 			 
-			 System.out.println("게시글 삭제 성공");
+			 System.out.println("寃뚯떆湲� �궘�젣 �꽦怨�");
 			 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -116,9 +116,9 @@ public class BulletinBoardMessageControl {
 				{
 					
 					
-					//바꾸고 싶은 애트리뷰트는 set 다음에 명시된것
-					//where 애트리뷰트가 바꾸고 싶은 행을 찾는 것
-					//updateQuery = "update memberdata set 바꿀필드명 = ? where 기본PK = ?"; 
+					//諛붽씀怨� �떢�� �븷�듃由щ럭�듃�뒗 set �떎�쓬�뿉 紐낆떆�맂寃�
+					//where �븷�듃由щ럭�듃媛� 諛붽씀怨� �떢�� �뻾�쓣 李얜뒗 寃�
+					//updateQuery = "update memberdata set 諛붽��븘�뱶紐� = ? where 湲곕낯PK = ?"; 
 		
 					String updateQuery = "update `"+ dbTable +"` set bulletinBoard = ?"
 							+ ", openingDate = ?, closingDate = ?, kindOfbulletinBoard = ?, creator = ?"
@@ -141,7 +141,7 @@ public class BulletinBoardMessageControl {
 					
 					count = pstmt.executeUpdate();
 					System.out.println(count);
-					System.out.println("게시판 변경완료");
+					System.out.println("寃뚯떆�뙋 蹂�寃쎌셿猷�");
 				}
 			}
 		} catch (Exception e) {
@@ -157,14 +157,14 @@ public class BulletinBoardMessageControl {
         {
 			String selectQuery = "SELECT * FROM `"+ dbTable +"`" ;
 			
-            //질의를 할 Statement 만들기 
+            //吏덉쓽瑜� �븷 Statement 留뚮뱾湲� 
             stmt = con.createStatement();
             
-            rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
+            rs = stmt.executeQuery(selectQuery); //議고쉶 荑쇰━寃곌낵瑜� rs�뿉 �꽔�쓬
             
-            System.out.println("--- 테이블 table 내용 조회 ---");
+            System.out.println("--- �뀒�씠釉� table �궡�슜 議고쉶 ---");
             
-            //rs의 내용을 가져옴
+            //rs�쓽 �궡�슜�쓣 媛��졇�샂
             while (rs.next())
             {
             	
@@ -200,14 +200,14 @@ public class BulletinBoardMessageControl {
         {
 			String selectQuery = "SELECT * FROM `"+ dbTable + "` where bulletinboardbum = '" + bulletinBoardNum + "'";
 			
-            //질의를 할 Statement 만들기 
+            //吏덉쓽瑜� �븷 Statement 留뚮뱾湲� 
             stmt = con.createStatement();
             
-            rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
+            rs = stmt.executeQuery(selectQuery); //議고쉶 荑쇰━寃곌낵瑜� rs�뿉 �꽔�쓬
             
-            System.out.println("--- 테이블 student 내용 조회 ---");
+            System.out.println("--- �뀒�씠釉� student �궡�슜 議고쉶 ---");
             
-            //rs의 내용을 가져옴
+            //rs�쓽 �궡�슜�쓣 媛��졇�샂
             if (rs.next())
             {
             	

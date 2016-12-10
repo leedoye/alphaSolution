@@ -1,10 +1,16 @@
 package project.community;
-
 public class CommunityParticipant {
 	
-	int communityNo;
-	String memberID;
-	String participationSeparation;
+	public int communityNo;
+	public String memberID;
+	public int participationSeparation;
+	/*
+	 * participationSeparation
+	 * 0 : 모임방 운영자
+	 * 1 : 모임방 참여회원
+	 * 2 : 모임방 탈퇴회원
+	 * 3 : 모임방 참여신청자
+	 * */
 	
 	public int getCommunityNo() {
 		return communityNo;
@@ -18,10 +24,10 @@ public class CommunityParticipant {
 	public void setMemberID(String memberID) {
 		this.memberID = memberID;
 	}
-	public String getParticipationSeparation() {
+	public int getParticipationSeparation() {
 		return participationSeparation;
 	}
-	public void setParticipationSeparation(String participationSeparation) {
+	public void setParticipationSeparation(int participationSeparation) {
 		this.participationSeparation = participationSeparation;
 	}
 }

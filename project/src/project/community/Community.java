@@ -1,5 +1,4 @@
 package project.community;
-
 public class Community {
 
 	public int communityNo;
