@@ -1,20 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
+<% request.setCharacterEncoding("UTF-8"); %>
+
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.*"%>
+<%@ page import="project.member.EmployeeData"%>
+<%@ page import="project.workresult.*"%>
+<!-- 엔티티 클래스 및 컨트롤 추가 하는곳 여기는 기본셋팅이라 건들지 말것 -->
 <jsp:useBean id="memberControl" class="project.member.MemberControl" />
 <jsp:useBean id="em" class="project.member.EmployeeData" />
 <jsp:useBean id="nor" class="project.member.NormalMemberData" />
 <jsp:useBean id="mem" class="project.member.MemberData" />
-<jsp:setProperty name="nor" property="*" />
+
+<!-- 엔티티 클래스 및 컨트롤 추가 하는곳 여기에 추가할것 -->
+<jsp:useBean id="workControl"
+	class="project.workresult.WorkResultControl" />
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
+<!-- 홈페이지 제목 부분  -->
+
+<title>직원회원가입</title>
+
+
+
+
+<!-- 기본셋팅 값 건들지말것 -->
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -22,29 +38,49 @@
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../css/bootstrap-theme.css" />
 <link href="../css/innerStyle.css" type="text/css" rel="stylesheet" />
+<title>Insert title here</title>
 <SCRIPT type="text/javascript" src="../js/function.js"></SCRIPT>
+
+<!-- 자신의 javascript를 추가하는 곳 -->
+
+
+<script>
+	
+	function user()
+	{
+		
+	}
+	
+</script>
 </head>
+
+
 <body>
-
+	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
 	<header> <%
- 	em = (project.member.EmployeeData) session.getAttribute("member");
- 	Integer o = (Integer) session.getAttribute("login");
- 	Integer isLogin = -1;
-
- 	if (o != null) {
-
- 		isLogin = (Integer) session.getAttribute("login");
- 	}
-
- 	if (isLogin == 0 || isLogin == 1) {
- 		if (em.memberID.charAt(0) == 'E' || em.memberID.charAt(0) == 'A') {
- %>
+      nor = (project.member.NormalMemberData) session.getAttribute("member");
+      Integer o = (Integer) session.getAttribute("login");
+      Integer isLogin = -1 ;
+      
+      
+      if ( o != null )
+      {
+         
+         isLogin = (Integer)session.getAttribute("login");
+      }
+      
+      
+      
+      if ( isLogin == 0 || isLogin == 1) {
+         if (nor.memberID.charAt(0) == 'E' || nor.memberID.charAt(0) == 'A')
+         {
+            
+         
+   %>
 	<div align="right">
 		<table clsss="innor" id="innor">
 			<tr align=center>
-				<td colspan=3><%=em.name%> <%
- 	out.println("( " + em.ID + " ) 환영합니다.");
- %></td>
+				<td colspan=3><%= nor.name %> <% out.println( "( " + nor.ID + " ) 환영합니다.") ;%></td>
 
 			</tr>
 			<form action="../member/logout.jsp">
@@ -60,15 +96,14 @@
 
 		</table>
 	</div>
-	<%
-		} else {
-	%>
+	<%      }
+         else
+         {
+            %>
 	<div align="right">
 		<table clsss="innor" id="innor">
 			<tr align=center>
-				<td colspan=3><%=em.name%> <%
- 	out.println("( " + em.ID + " ) 환영합니다.");
- %></td>
+				<td colspan=3><%= nor.name %> <% out.println( "( " + nor.ID + " ) 환영합니다.") ;%></td>
 
 			</tr>
 			<form action="../member/logout.jsp">
@@ -85,9 +120,10 @@
 		</table>
 	</div>
 	<%
-		}
-		} else {
-	%>
+         }
+      }
+      else {
+   %>
 	<div align="right">
 
 		<table>
@@ -107,9 +143,12 @@
 			</tr>
 		</table>
 	</div>
-	<%
-		}
-	%> </header>
+	<% }
+   %> </header>
+
+	<!-- 여기서 부터 화면에 목록을 출력함 여기는 도예가 수정할 것임 수정되면 붙여넣으면됨 -->
+
+
 	<nav>
 	<table width="100%">
 		<tr align="center">
@@ -236,180 +275,116 @@
 		</tr>
 	</table>
 	</nav>
-	<h6>교육센터 통합 운영관리 시스템 - 회원정보관리 - 직원정보 수정</h6>
+	<!--  여기까지 화면의 목록!!!!!! -->
 
-	<h3>직원 정보 수정</h3>
 
-	<div width=1440 height=1920>
+	<!-- 여기는 자신의 관리와 기능을 적을것 -->
+<h6> 교육센터 통합 운영관리 시스템 - 업무평가관리 - 업무평가 조회</h6>
 
-		<div width=1000>
-			<form id=memberCreateForm action="EmployeeMemberUpdate.jsp">
+<h3>업무 평가 조회</h3>
+
+<%
+	String name = request.getParameter("name");
+	
+	
+%>
+<form>
+<div>
+	<form action="#">
+			<div>
 				<fieldset>
-					<legend>비밀번호변경</legend>
-					<table id=memberCreateTable>
-
-						<tr>
-							<td>로그인 아이디</td>
-							<td><input type="text" name=ID value=<%=em.ID%>></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>비밀번호</td>
-							<td><input type="password" name=password></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>비밀번호확인</td>
-							<td><input type="password" name=checkPassword></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</table>
-				</fieldset>
-
-				<fieldset id=contact>
-					<legend>개인정보</legend>
-					<table>
-
-						<tr>
-							<td>한글성명</td>
-							<td><input type="text" name=name value=<%=em.name%>></td>
-							<td>영문 성명</td>
-							<td><input type="text" name=enName value=<%=em.enName%>></td>
-						</tr>
-
-						<tr>
-							<td>성별</td>
-							<td colspan=2><input type="radio" id=genderStatus
-								name=genderStatus
-								<%if (em.genderStatus == 1) {
-				out.write("checked");
-			}%>>
-								남자 <input type="radio" id=genderStatus name=genderStatus
-								<%if (em.genderStatus == 0) {
-				out.write("checked");
-			}%>>
-								여자</td>
-							<td></td>
-
-						</tr>
-
-						<tr>
-							<td>주민등록지주소</td>
-							<td colspan=3><input type="text" name=truthResidence
-								style="width: 500px;" value=<%=em.truthResidence%>></td>
-							<td></td>
-							<td></td>
-						</tr>
-
-						<tr>
-							<td>거주지주소</td>
-							<td colspan=3><input type="text" name=address
-								style="width: 500px;" value=<%=em.address%>></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>집 전화번호</td>
-							<td><input type="text" name=homePhoneNo
-								value=<%=em.homePhoneNo%>></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>휴대폰 번호</td>
-							<td><input type="text" name=phoneNo value=<%=em.phoneNo%>></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>비상연락 전화번호번호</td>
-							<td><input type="text" name=emergencyContact
-								value=<%=em.emergencyContact%>"></td>
-							<td></td>
-							<td></td>
-						</tr>
-
-						<tr>
-							<td>이메일</td>
-							<td colspan=2><input type="text" name=email
-								style="width: 300px;" value=<%=em.email%>></td>
-							<td><SELECT id="emailList">
-									<OPTION selected>직접입력</OPTION>
-									<OPTION>naver.com</OPTION>
-									<OPTION>daum.net</OPTION>
-									<OPTION>gmail.com</OPTION>
-							</SELECT></td>
-							<td></td>
-						</tr>
-
-					</table>
-				</fieldset>
-
-
-				<fieldset>
-					<legend>계좌정보변경</legend>
+					<legend>직원정보조회</legend>
 					<table>
 						<tr>
-							<td>은행코드</td>
-							<td><input type="text" name=bankCode></td>
-							<td></td>
-							<td></td>
+							<td>직원이름</td>
+							<td><input type="text" name=name></td>
+							<td><input type="submit" class="myButton" id=nameCheck
+								value="조회"></td>
 						</tr>
-						<tr>
-							<td>계좌번호</td>
-							<td><input type="text" name=accountNumber></td>
-							<td></td>
-							<td></td>
-						</tr>
-
-					</table>
-				</fieldset>
-				<fieldset>
-					<legend>추가정보변경</legend>
-
-
-					<table>
-
-						<tr>
-							<td>근무센터명</td>
-							<td><input type="text" name=centerName
-								value=<%=em.centerDepartmentName%>></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>강의과목명</td>
-							<td><input type="text" name=responsibilitySubject></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>경력명</td>
-							<td>경력 유형구분</td>
-							<td>경력설명</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>정보처리기사</td>
-							<td>자격증</td>
-							<td>-</td>
-							<td></td>
-						</tr>
-
-
-
 					</table>
 
 				</fieldset>
-				<div align=right>
-					<input type="submit" class=myButton value="수정"> <input
-						type="button" class=myButton value="취소" onclick="cancleBtn()">
-				</div>
-			</form>
-		</div>
-	</div>
+			</div>
+		</form>
+	
+	<fieldset>
+		<legend>조회결과</legend>
+		<table width="600px">
+			<tr>
+				<td>번호</td>
+				<td>평가일자</td>
+			
+				<td>소속/직급</td>
+				<td>이름</td>
+				<td>상세조회</td>
+			</tr>
+			
+			<%
+				if ( name == null )
+				{
+					ArrayList<EmployeeData> arr = memberControl.selectEmployeeData();
+					int count = 1 ;
+					  for (int i = 0; i < arr.size(); ++i) {
+						  ArrayList<WorkResult> workArr = workControl.selectWorkResult(arr.get(i).memberID);
+						  
+						  for ( int j = 0 ; j < workArr.size(); ++j )
+						  {
+							  
+			                  %>
+			                  <tr>
+			                     <td><%=count++%></td>
+			                     <td><%=workArr.get(j).resultDate%></td>
+			                    
+			                     <td><%=arr.get(i).centerDepartmentName %> / <%= arr.get(i).positionName %></td>
+			                     <td>
+			                     <a method="get" href="WorkResultDetailReadView.jsp?value=<%=workArr.get(j).resultNo%>&value2=<%=arr.get(i).memberID%>">
+			                     <%=arr.get(i).name%> </a>
+			                     </td>
+			                     
+			                  </tr>
+			                  <%
+						  }
+		               }
+		                  
+				}
+				else
+				{
+					ArrayList<EmployeeData> arr = memberControl.selectEmployeeData(name);
+					int count = 1 ;
+					  for (int i = 0; i < arr.size(); ++i) {
+						  ArrayList<WorkResult> workArr = workControl.selectWorkResult(arr.get(i).memberID);
+						  
+						  for ( int j = 0 ; j < workArr.size(); ++j )
+						  {
+							  
+			                  %>
+			                  <tr>
+			                     <td><%=count++%></td>
+			                     <td><%=workArr.get(j).resultDate%></td>
+			                    
+			                     <td><%=arr.get(i).centerDepartmentName %> / <%= arr.get(i).positionName %></td>
+			                     <td>
+			                     <a method="get" href="WorkResultDetailReadView.jsp?value=<%=workArr.get(j).resultNo%>&value2=<%=arr.get(i).memberID%>">
+			                     <%=arr.get(i).name%> </a>
+			                     </td>
+			                     
+			                  </tr>
+			                  <%
+						  }
+		               }
+				}
+			%>		
+		</table>
+	</fieldset>
+</div>
+
+</form>
+	<%
+	ArrayList<EmployeeData> arr = (ArrayList<EmployeeData>) session.getAttribute("eArr");
+			
+				
+	%>
+
+	
 </body>
 </html>

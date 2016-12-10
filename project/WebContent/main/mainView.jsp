@@ -168,7 +168,7 @@
 					data-toggle="dropdown"><i class="fa fa-folder-open"></i><font
 						color="black" size="4">강의평가</font> <i class="caret"></i></a>
 					<ul class="dropdown-menu" role="menu"
-						aria-labelledby="dropdownCategoryMenu">
+						aria-labelledby="dropdownCategoryMenu">7
 						<li><a href="/category"><i class="fa fa-folder"></i>
 								강의평가등록</a></li>
 						<li><a href="/category/1"><i class="fa fa-folder"></i>
@@ -178,7 +178,7 @@
 			</td>
 
 			<td>
-				<li class="dropdown"><a href="#" id="dropdownCategoryMenu"
+				<li class="dropdown"><a href="#" sid="dropdownCategoryMenu"
 					data-toggle="dropdown"><i class="fa fa-folder-open"></i><font
 						color="black" size="4">업무평가</font><i class="caret"></i></a>
 					<ul class="dropdown-menu" role="menu"
