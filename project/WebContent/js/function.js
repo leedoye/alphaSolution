@@ -30,5 +30,5 @@ function getMemberType() {
 }
 
 function employeeUpdateBtn() {
-	location.href = "EmployeeUpdateView.jsp";	
+	location.href = "EmployeeMemberUpdateView.jsp";	
 }

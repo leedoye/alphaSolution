@@ -3,6 +3,10 @@
  * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ legend{
+    background-color : #ccc;
+ }
+ 
  th{
 background-color : #ccc;
    text-align : center;
@@ -74,6 +78,7 @@ background-color : #ccc;
   -moz-appearance: none;
   appearance: none;
 }
+<<<<<<< HEAD
 table {
    border: 1px;
    cellpadding : 30;

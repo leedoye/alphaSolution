@@ -1,4 +1,5 @@
 <%@page import="project.community.CommunityControl"%>
+<%@page import="project.community.CommunityParticipant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
@@ -15,8 +16,6 @@
 <jsp:useBean id="communityParticipant" class="project.community.CommunityParticipant" />
 <jsp:useBean id="communityParticipantControl" class="project.community.CommunityParticipantControl" />
 
-<jsp:setProperty name="community" property="*" />
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -32,56 +31,46 @@
 	<%
 		Integer o = (Integer) session.getAttribute("login");
 	    Integer isLogin = -1 ;
-	    
-	      //out.println(id + " " + password) ;;
-	    
-	   if ( o != null )
+	   	if ( o != null )
 	    {      
-	       isLogin = (Integer)session.getAttribute("login");
-	       
-	       if ( isLogin == 0 )
-	       {
-	          nor = (project.member.NormalMemberData) session.getAttribute("member");    
-	          mem.memberID = nor.memberID;
-	       }
-	       else
-	       {
-	          em = (project.member.EmployeeData) session.getAttribute("member");     
-	          mem.memberID = em.memberID;
-	       }
+		       isLogin = (Integer)session.getAttribute("login");
+		       
+		       if ( isLogin == 0 )
+		       {
+		          nor = (project.member.NormalMemberData) session.getAttribute("member");    
+		          mem.memberID = nor.memberID;
+		       }
+		       else
+		       {
+		          em = (project.member.EmployeeData) session.getAttribute("member");     
+		          mem.memberID = em.memberID;
+		       }
 	    }
-	   
-	   // communityNo 설정
-		community.communityNo = communityControl.getCommunityNo(); 
-		communityParticipant.communityNo = community.communityNo;
+		int communityNo = Integer.valueOf(request.getParameter("communityNo"));
+	   	
+	   	CommunityParticipant op = new CommunityParticipant();
+	   	op = communityParticipantControl.selectCommunityOperator(communityNo);
+	   	
+	   	if( op.memberID.equals(mem.memberID)){
+	   		community = communityControl.selectCommunity(String.valueOf(communityNo));
+	   		community.closingDate = "폐지";
+	   		communityControl.updateCommunity(community);
+	   	}
+	   	else{
+	   		communityParticipant.communityNo = communityNo;
+			communityParticipant.memberID = mem.memberID;
+			communityParticipant.participationSeparation = 2;
+			communityParticipantControl.updateCommunityParticipant(communityParticipant);
+	   	}
 		
-		// communityName 설정
-		community.communityName = request.getParameter("communityName");
-		%><script type="text/javascript">alert("communityName : "+community.communityName);</script><%
-		
-		// communityExplanation 설정
-		community.communityExplanation = request.getParameter("communityExplanation");
-		%>
-		<script type="text/javascript">
-		alert("communityName : "+community.communityExplanation);
-		</script><%
-		
-		community.closingDate = null;
-		
-		communityParticipant.memberID = mem.memberID;
-		communityParticipant.participationSeparation = 0;
-		
-		communityControl.insertCommunity(community);
-		communityParticipantControl.insertCommunityParticipant(communityParticipant);
-		
+
 	%>
 
 	<!-- 데이터 처리후 원래의 View로 돌려줄것 -->
 	<script type="text/javascript">
-	alert("등록완료");
+	alert("신청완료");
 	location.href="CommunityReadView.jsp";
-	
-</script>
+	</script>
 
 </body>
 </html>

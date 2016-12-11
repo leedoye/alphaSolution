@@ -1,10 +1,11 @@
-<%@page import="project.center.CenterControl"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
+<%@ page import="java.util.*"%>
+<%@ page import="project.community.*"%>
+
 
 <!-- 엔티티 클래스 및 컨트롤 추가 하는곳 여기는 기본셋팅이라 건들지 말것 -->
 <jsp:useBean id="memberControl" class="project.member.MemberControl" />
@@ -18,133 +19,128 @@
 <jsp:useBean id="communityparticipant" class="project.community.CommunityParticipant" />
 <jsp:useBean id="communityParticipantControl" class="project.community.CommunityParticipantControl" />
 
+<jsp:useBean id="communityBulletinBoardControl" class="project.community.CommunitybulletinBoardControl" />
+<jsp:useBean id="communityBulletinBoard" class="project.community.CommunityBulletinBoard" />
+<jsp:setProperty property="*" name="communityBulletinBoard" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<!-- 홈페이지 제목 부분  -->
-
-<title>모임방 등록</title>
-
-<!-- 기본셋팅 값 건들지말것 -->
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
 <link rel="stylesheet" href="../css/bootstrap-theme.css" />
 <link href="../css/innerStyle.css" type="text/css" rel="stylesheet" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<SCRIPT type="text/javascript" src="../js/function.js"></SCRIPT>
-
-<!-- 자신의 javascript를 추가하는 곳 -->
-<script type="text/javascript">
-	function loadCommunityCreateView(){
-		location.href="CommunityCreateView.jsp";
-	}
-</script>
+<SCRIPT src="../js/function.js"></SCRIPT>
+<SCRIPT src="../js/community.js"></SCRIPT>
 </head>
-
 
 <body>
 	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
 
-	<header>
-   <%
-      
-      mem = (project.member.MemberData) session.getAttribute("member");
-      Integer o = (Integer) session.getAttribute("login");
-      Integer isLogin = -1 ;
-      
-        //out.println(id + " " + password) ;;
-      
-     if ( o != null )
-      {      
-         isLogin = (Integer)session.getAttribute("login");
-         
-         if ( isLogin == 0 )
-         {
-            nor = (project.member.NormalMemberData) session.getAttribute("member");         
-         }
-         else
-         {
-            em = (project.member.EmployeeData) session.getAttribute("member");     
-         }
-      }
-      
-   
-      
-      if ( isLogin == 0 || isLogin == 1) {
-         if ( isLogin == 0)
-         {
-               
-   %>
-   <div align="right">
-      <table clsss="innor" id="innor">
-         <tr align=center>
-            <td colspan=3> <%= nor.name %> <% out.println( "( " + nor.ID + " ) 환영합니다.") ;%></td>
-            
-         </tr>
-         <form action="../member/logout.jsp">
-         <tr align=center>
-            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
-         </form>
-         <form action="../member/NormalMemberReadView.jsp">
-            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
-         </form>
-         </tr>
-         
-      </table>
-   </div>
-   <%      }
-         else
-         {
-            %>
-   <div align="right">
-      <table clsss="innor" id="innor">
-         <tr align=center>
-            <td colspan=3> <%= em.name %> <% out.println( "( " + em.ID + " ) 환영합니다.") ;%></td>
-            
-         </tr>
-         <form action="../member/logout.jsp">
-         <tr align=center>
-            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
-         </form>
-         <form action="../member/EmployeeMemberReadView.jsp">
-            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
-         </form>
-         </tr>
-         
-      </table>
-   </div>
-            <%
-         }
-      }
-      else {
-   %>
-      <div align="right">
-      
-      <table>
-      <form action="../member/loginView2.jsp">
-         <tr>
-            <td>아이디</td>
-            <td><input type="text" name="ID" value="s0001"></td>
-            <td><input class="myButton" type="submit" value="로그인"></td>
-         </tr>
-         <tr>
-            <td>비밀번호</td>
-            <td><input type="password" name="password" value="1234"></td>
-      </form>
-      <form action="../member/RealNameAuthenticationTypeView.jsp">
-            <td><input class="myButton" type="submit" value="회원가입"></td>
-      </form>e
-         </tr>
-      </table>
-   </div>
-   <% }
-   %>
-   </header>
+	<header> <%
+ 	mem = (project.member.MemberData) session.getAttribute("member");
+ 	Integer o = (Integer) session.getAttribute("login");
+ 	Integer isLogin = -1;
+
+ 	//out.println(id + " " + password) ;;
+
+ 	if (o != null) {
+ 		isLogin = (Integer) session.getAttribute("login");
+
+ 		if (isLogin == 0) {
+ 			nor = (project.member.NormalMemberData) session.getAttribute("member");
+ 			mem.memberID = nor.memberID;
+ 		} else {
+ 			em = (project.member.EmployeeData) session.getAttribute("member");
+ 			mem.memberID = em.memberID;
+ 		}
+ 	}
+ 	else{
+ 		
+ 	}
+
+ 	if (isLogin == 0 || isLogin == 1) {
+ 		if (isLogin == 0) {
+ %>
+	<div align="right">
+		<table clsss="innor" id="innor">
+			<tr align=center>
+				<td colspan=3><%=nor.name%> <%
+ 	out.println("( " + nor.ID + " ) 환영합니다.");
+ %></td>
+
+			</tr>
+			<form action="../member/logout.jsp">
+				<tr align=center>
+					<td colspan=1><input class="myButton" type="submit"
+						value="로그아웃"></td>
+			</form>
+			<form action="../member/NormalMemberReadView.jsp">
+				<td colspan=1><input class="myButton" type="submit"
+					value="마이페이지"></td>
+			</form>
+			</tr>
+
+		</table>
+	</div>
+	<%
+		} else {
+	%>
+	<div align="right">
+		<table clsss="innor" id="innor">
+			<tr align=center>
+				<td colspan=3><%=em.name%> <%
+ 	out.println("( " + em.ID + " ) 환영합니다.");
+ %></td>
+
+			</tr>
+			<form action="../member/logout.jsp">
+				<tr align=center>
+					<td colspan=1><input class="myButton" type="submit"
+						value="로그아웃"></td>
+			</form>
+			<form action="../member/EmployeeMemberReadView.jsp">
+				<td colspan=1><input class="myButton" type="submit"
+					value="마이페이지"></td>
+			</form>
+			</tr>
+
+		</table>
+	</div>
+	<%
+		}
+		} else {
+	%>
+	<div align="right">
+
+		<table>
+			<form action="../member/loginView2.jsp">
+				<tr>
+					<td>아이디</td>
+					<td><input type="text" name="ID" value="s0001"></td>
+					<td><input class="myButton" type="submit" value="로그인"></td>
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td><input type="password" name="password" value="1234"></td>
+			</form>
+			<form action="../member/RealNameAuthenticationTypeView.jsp">
+				<td><input class="myButton" type="submit" value="회원가입"></td>
+			</form>
+			e
+			</tr>
+		</table>
+	</div>
+	<%
+		}
+	%> </header>
 
 	<!-- 여기서 부터 화면에 목록을 출력함 여기는 도예가 수정할 것임 수정되면 붙여넣으면됨 -->
 
@@ -276,60 +272,85 @@
 	</table>
 	</nav>
 	<!--  여기까지 화면의 목록!!!!!! -->
+	<h6 class=subTitle>교육센터 통합 운영관리 시스템 - 모임방 - 모임방상세조회(모임방 게시판조회)</h6>
 
-
-	<!-- 여기는 자신의 관리와 기능을 적을것 -->
-	<h6>교육센터 통합 운영관리 시스템 - 모임방 - 모임방 조회</h6>
-
-	<!-- 여기는 자신의 기능을 적을것-->
-	<h3>모임방 조회</h3>
-
-	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
-
+	<h3 class=mainTitle>모임방상세조회(모임방 게시판조회)</h3>
+	<%
+	//모임방 상세조회에서 수정 버튼과 함께 communityNo 넘겨주는 태그 만들어 놓기
+	String communityNo = request.getParameter("value");
+	session.setAttribute("cbbd", null);
+	ArrayList<CommunityBulletinBoard> arr1 = communityBulletinBoardControl.selectCommunityBulletinBoard(); 
+  
+	%>
+	
 	<div align="center">
-		<form action="CommunityCreate.jsp">
-			<table width="70%" cellpadding="15">
-				<tr>
-					<td><input type="button" class="myButton" value="모임방 등록" onclick="loadCommunityCreateView()"></td>
-					<td align="right" colspan=3>
-					<input type="submit" class="myButton" style="float:right;" value="검색" onclick=>
-						<input type="text" name="search_keyword" style="float:right; width:400px"> 
-						
-					</td>
-				</tr>
-				
-				<tr align=center> <td colspan=4>&nbsp;</td> </tr>
-				<tr align=center> <td colspan=4>&nbsp;</td> </tr>
-				
-				<tr bgcolor="silver">
-					<th align="center">모임방 명</td>
-					<th>모임방 설명</td>
-					<th align="center">운영자</td>
-					<th colspan=2></td>
-				</tr>
+		<table width="70%" cellpadding="15">
+		
+			<tr>
+				<td colspan=1>
+						<form action="CommunityParticipantRegisterView.jsp">
+							<input type="hidden" name=communityNo value=<%=communityNo%>>
+							<input type="submit" class="myButton"style="float:left;" value="신청자 목록">
+						</form>
+				</td>	
+				<td colspan=3 align=right>
+						<form action="CommunityParticipantDelete.jsp"><!-- 탈퇴처리하는 부분만들기 -->
+							<input type="hidden" name=communityNo value=<%=communityNo%>>
+							<input type="submit" class="myButton"style="float:right;" value="모임방 탈퇴">
+						</form>
+			
+						<form action="CommunityUpdateView.jsp">
+							<input type="hidden" name=communityNo value=<%=communityNo%>>
+							<input type="submit" class="myButton"style="float:right; margin-right:20px;" value="모임방 수정">
+						</form>
+				</td>
+			</tr>		
+		
+			<tr align="center">
+				<th width="150">모임방 게시판 번호</th>
+				<th width="150">모임방 게시판 명</th>
+				<th width="100">개설일자</th>
+				<th width="100">개설자</th>
+			</tr>
 
+
+			<%
+				for (int i = 0; i < arr1.size(); ++i) {
+			%>
+
+			<tr align="center">
+				<td><%=arr1.get(i).communityBulletinBoardNo%></td>
+				<td>
+					 <a method="get" href="communityBulletinBoardMessageReadView.jsp?communityBulletinBoardNo=<%= arr1.get(i).communityBulletinBoardNo %>"><%= arr1.get(i).communityBulletinBoardName %></a>
+				</td>
+				<td><%=arr1.get(i).openingDate%></td>
+				<td><%=arr1.get(i).creator%></td>
 				<%
-				ArrayList<project.community.Community> communities = communityControl.selectCommunity();
-				for (int i = 0; i < communities.size(); ++i) {
-                    	 communityparticipant = communityParticipantControl.selectCommunityOperator( communities.get(i).communityNo );
-                    	 mem = memberControl.selectMemberData(communityparticipant.memberID);
-                  %>
-				<tr>
-					<td><a method="get" href="communityBulletinBoardReadView.jsp?value=<%=communities.get(i).communityNo%>"><%=communities.get(i).communityName%></a></td>
-					<td><%=communities.get(i).communityExplanation%></td>
-					<td align="center"><%=mem.name %></td>
-					<td align="center" colspan=2><a method="get" href="CommunityParticipantRequestView.jsp?value=<%=communities.get(i).communityNo%>">참여신청</a></td>
-				</tr>
-				<%
-                     }
-                  %>
+					}
+				%>
+			</tr>
+			
+			<tr align=center> <td colspan=4>&nbsp;</td> </tr>
+			<tr align=center> <td colspan=4>&nbsp;</td> </tr>
+			
+			<tr>
+				<td colspan=2 align=left>
+					<form action="CommunityParticipantReadView.jsp" align="left">
+						<input type="hidden" name=communityNo value=<%=communityNo%>>
+						<input class="myButton" type="submit" name="CommunityParticipantReadView" value="참여회원 조회">
+					</form>
+				</td>
 				
-				<!--  
-				<tr align=center> <td colspan=4>&nbsp;</td> </tr>
-				<tr> <td colspan=4 align=center>페이지 표시</td> </tr>
-				-->
-			</table>
-		</form>
+				<td colspan=2 align=right>
+					<form action="communityBulletinBoardCreateView.jsp" align="right">
+						<input type="hidden" name=communityNo value=<%=communityNo%>>
+						<!-- String communityNo = request.getParameter("communityNo"); -->
+						<input class="myButton" type="submit" name="communityBulletinBoard" value="게시판 등록">
+					</form>
+				</td>
+			</tr>
+			
+		</table>
 	</div>
 
 </body>

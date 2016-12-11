@@ -1,3 +1,4 @@
+<%@page import="javafx.scene.control.Alert"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -12,10 +13,9 @@
 
 <!-- 엔티티 클래스 및 컨트롤 추가 하는곳 여기에 추가할것 -->
 <jsp:useBean id="community" class="project.community.Community" />
-<jsp:useBean id="communityControl"
-	class="project.community.CommunityControl" />
-<jsp:useBean id="communityparticipant"
-	class="project.community.CommunityParticipant" />
+<jsp:useBean id="communityControl" class="project.community.CommunityControl" />
+<jsp:useBean id="communityparticipant" class="project.community.CommunityParticipant" />
+<jsp:useBean id="communityParticipantControl" class="project.community.CommunityParticipantControl" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -37,7 +37,7 @@
 <link href="../css/innerStyle.css" type="text/css" rel="stylesheet" />
 <title>Insert title here</title>
 <SCRIPT type="text/javascript" src="../js/function.js"></SCRIPT>
-
+<SCRIPT type="text/javascript" src="../js/community.js"></SCRIPT>
 <!-- 자신의 javascript를 추가하는 곳 -->
 
 </head>
@@ -46,100 +46,113 @@
 <body>
 	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
 	
-	<header> <%
- 	nor = (project.member.NormalMemberData)session.getAttribute("member");
- 	Integer o = (Integer) session.getAttribute("login");
- 	Integer isLogin = -1;
-
- 	
- 	if (o != null) {
-
- 		isLogin = (Integer) session.getAttribute("login");
- 	}
- 	else
- 	{
- 		%>
- 			<script>
- 			alert("모임방 등록은 회원만 할 수 있습니다.");
- 			history.go(-1);
- 			</script>
- 		<%
- 	}
-
- 	if (isLogin == 0 || isLogin == 1) {
- 		if (nor.memberID.charAt(0) == 'E' || nor.memberID.charAt(0) == 'A') {
- %>
-	<div align="right">
-		<table clsss="innor" id="innor">
-			<tr align=center>
-				<td colspan=3><%=nor.name%> <%
- 	out.println("( " + nor.ID + " ) 환영합니다.");
- %></td>
-
-			</tr>
-			<form action="../member/logout.jsp">
-				<tr align=center>
-					<td colspan=1><input class="myButton" type="submit"
-						value="로그아웃"></td>
-			</form>
-			<form action="../member/EmployeeMemberReadView.jsp">
-				<td colspan=1><input class="myButton" type="submit"
-					value="마이페이지"></td>
-			</form>
-			</tr>
-
-		</table>
-	</div>
-	<%
-		} else {
-	%>
-	<div align="right">
-		<table clsss="innor" id="innor">
-			<tr align=center>
-				<td colspan=3><%=nor.name%> <%
- 	out.println("( " + nor.ID + " ) 환영합니다.");
- %></td>
-
-			</tr>
-			<form action="../member/logout.jsp">
-				<tr align=center>
-					<td colspan=1><input class="myButton" type="submit"
-						value="로그아웃"></td>
-			</form>
-			<form action="../member/NormalMemberReadView.jsp">
-				<td colspan=1><input class="myButton" type="submit"
-					value="마이페이지"></td>
-			</form>
-			</tr>
-
-		</table>
-	</div>
-	<%
-		}
-		} else {
-	%>
-	<div align="right">
-
-		<table>
-			<form action="../member/loginView2.jsp">
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="ID"></td>
-					<td><input class="myButton" type="submit" value="로그인"></td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td><input type="password" name="password"></td>
-			</form>
-			<form action="../member/RealNameAuthenticationTypeView.jsp">
-				<td><input class="myButton" type="submit" value="회원가입"></td>
-			</form>
-			</tr>
-		</table>
-	</div>
-	<%
-		}
-	%> </header>
+	<header>
+   <%
+      
+      mem = (project.member.MemberData) session.getAttribute("member");
+      Integer o = (Integer) session.getAttribute("login");
+      Integer isLogin = -1 ;
+      
+        //out.println(id + " " + password) ;;
+      
+     if ( o != null )
+      {      
+         isLogin = (Integer)session.getAttribute("login");
+         
+         if ( isLogin == 0 )
+         {
+            nor = (project.member.NormalMemberData) session.getAttribute("member");
+            mem.memberID = nor.memberID;
+         }
+         else
+         {
+            em = (project.member.EmployeeData) session.getAttribute("member");     
+            mem.memberID = em.memberID;
+         }
+      }
+     else
+     {
+    	
+    	 %>
+    	 
+    	 
+    	 <script>
+    	 	alert("회원만 모임방 등록이 가능합니다.");
+    	 	history.go(-1);
+    	 </script>
+    	 <%
+     }
+      
+      if ( isLogin == 0 || isLogin == 1) {
+         if ( isLogin == 0)
+         {
+               
+   %>
+   <div align="right">
+      <table clsss="innor" id="innor">
+         <tr align=center>
+            <td colspan=3> <%= nor.name %> <% out.println( "( " + nor.ID + " ) 환영합니다.") ;%></td>
+            
+         </tr>
+         <form action="../member/logout.jsp">
+         <tr align=center>
+            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
+         </form>
+         <form action="../member/NormalMemberReadView.jsp">
+            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
+         </form>
+         </tr>
+         
+      </table>
+   </div>
+   <%      }
+         else
+         {
+            %>
+   <div align="right">
+      <table clsss="innor" id="innor">
+         <tr align=center>
+            <td colspan=3> <%= em.name %> <% out.println( "( " + em.ID + " ) 환영합니다.") ;%></td>
+            
+         </tr>
+         <form action="../member/logout.jsp">
+         <tr align=center>
+            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
+         </form>
+         <form action="../member/EmployeeMemberReadView.jsp">
+            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
+         </form>
+         </tr>
+         
+      </table>
+   </div>
+            <%
+         }
+      }
+      else {
+   %>
+      <div align="right">
+      
+      <table>
+      <form action="../member/loginView2.jsp">
+         <tr>
+            <td>아이디</td>
+            <td><input type="text" name="ID" value="s0001"></td>
+            <td><input class="myButton" type="submit" value="로그인"></td>
+         </tr>
+         <tr>
+            <td>비밀번호</td>
+            <td><input type="password" name="password" value="1234"></td>
+      </form>
+      <form action="../member/RealNameAuthenticationTypeView.jsp">
+            <td><input class="myButton" type="submit" value="회원가입"></td>
+      </form>e
+         </tr>
+      </table>
+   </div>
+   <% }
+   %>
+   </header>
 
 	<!-- 여기서 부터 화면에 목록을 출력함 여기는 도예가 수정할 것임 수정되면 붙여넣으면됨 -->
 
@@ -281,29 +294,47 @@
 
 	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
 	<%
-	//모임방 상세조회에서 수정 버튼과 함께 communityNo 넘겨주는 태그 만들어 놓기
-	String communityNo = request.getParameter("value");
+	String communityNo = request.getParameter("communityNo");
+	community = communityControl.selectCommunity(communityNo);
+	out.print(communityNo);
+	communityparticipant = communityParticipantControl.selectCommunityOperator(Integer.valueOf(communityNo));
+	if ( !mem.memberID.equals(communityparticipant.memberID) ){
+		%>
+		<script>
+		alert("모임방 운영자만 모임방 수정이 가능합니다.");
+		history.go(-1);
+		</script>
+		<%
+	}
+		
 	%>
 	
-	<div align="left"   >
-		<form action="CommunityUpdate.jsp">
-			<table width="600px" cellpadding="1">
+	<div align="center">
+		<form action="CommunityUpdate.jsp" onSubmit="return checkInputException( this )">
+			<table width="60%" cellpadding="1" align="center">
 				
 				<tr>
 					<td align=right>모임방 명</td>
-					<td><input type="text" name=communityName size=60 style="width: 200px;"></td>
+					<td><input id=communityName type="text" name=communityName size=60 style="width: 200px;" value="<%=community.communityName%>"></td>
 				</tr>
 				
 				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 				
 				<tr>
 					<td align=right>모임방 설명</td>
-					<td><textarea cols="60" rows="10" name=communityExplanation></textarea></td>
+					<td><textarea cols="60" rows="10" id="communityExplanation" name="communityExplanation" ><%=community.communityExplanation %></textarea></td>
 				</tr>
 				
+				<tr align=center> <td colspan=2>&nbsp;</td> </tr>
+				<tr align=center> <td colspan=2>&nbsp;</td> </tr>
+				
 				<tr>
-					<input type="hidden" name=communityNo value=<%=communityNo%>>
-					<td colspan=2 align="center"><input type="submit" class="myButton" value="등록" ><input type="button" onclick="cancleBtn()" class="myButton" value="취소"></td>
+					<td colspan=2 align=center >
+						<input type="hidden" name=communityNo value=<%=communityNo%>> 
+						<input type="hidden" name=flag id="flag" value="update">
+						<input type="submit" class="myButton" style="margin-right:20px;" onclick="checkInputException()" value="등록" >
+						<input type="button" onclick="cancleBtn()" style="margin-right:150px;" class="myButton" value="취소">
+					</td>
 				</tr>
 				
 			</table>

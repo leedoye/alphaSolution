@@ -50,98 +50,101 @@
 <body>
 	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
 
-	<header> <%
- 	nor = (project.member.NormalMemberData) session.getAttribute("member");
- 	Integer o = (Integer) session.getAttribute("login");
- 	Integer isLogin = -1;
-
- 	if (o != null) {
-
- 		isLogin = (Integer) session.getAttribute("login");
- 	}
- 	else
- 	{
- 	
- 		%> <script>
-					alert("모임방 참여 요청은 회원만 할 수 있습니다.");
-					history.go(-1);
-		</script> <%
- 	}
-
- 	if (isLogin == 0 || isLogin == 1) {
- 		if (nor.memberID.charAt(0) == 'E' || nor.memberID.charAt(0) == 'A') {
- %>
-	<div align="right">
-		<table clsss="innor" id="innor">
-			<tr align=center>
-				<td colspan=3><%=nor.name%> <%
- 	out.println("( " + nor.ID + " ) 환영합니다.");
- %></td>
-
-			</tr>
-			<form action="../member/logout.jsp">
-				<tr align=center>
-					<td colspan=1><input class="myButton" type="submit"
-						value="로그아웃"></td>
-			</form>
-			<form action="../member/EmployeeMemberReadView.jsp">
-				<td colspan=1><input class="myButton" type="submit"
-					value="마이페이지"></td>
-			</form>
-			</tr>
-
-		</table>
-	</div>
-	<%
-		} else {
-	%>
-	<div align="right">
-		<table clsss="innor" id="innor">
-			<tr align=center>
-				<td colspan=3><%=nor.name%> <%
- 	out.println("( " + nor.ID + " ) 환영합니다.");
- %></td>
-
-			</tr>
-			<form action="../member/logout.jsp">
-				<tr align=center>
-					<td colspan=1><input class="myButton" type="submit"
-						value="로그아웃"></td>
-			</form>
-			<form action="../member/NormalMemberReadView.jsp">
-				<td colspan=1><input class="myButton" type="submit"
-					value="마이페이지"></td>
-			</form>
-			</tr>
-
-		</table>
-	</div>
-	<%
-		}
-		} else {
-	%>
-	<div align="right">
-
-		<table>
-			<form action="../member/loginView2.jsp">
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="ID"></td>
-					<td><input class="myButton" type="submit" value="로그인"></td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td><input type="password" name="password"></td>
-			</form>
-			<form action="../member/RealNameAuthenticationTypeView.jsp">
-				<td><input class="myButton" type="submit" value="회원가입"></td>
-			</form>
-			</tr>
-		</table>
-	</div>
-	<%
-		}
-	%> </header>
+	<header>
+   <%
+      
+      mem = (project.member.MemberData) session.getAttribute("member");
+      Integer o = (Integer) session.getAttribute("login");
+      Integer isLogin = -1 ;
+      
+        //out.println(id + " " + password) ;;
+      
+     if ( o != null )
+      {      
+         isLogin = (Integer)session.getAttribute("login");
+         
+         if ( isLogin == 0 )
+         {
+            nor = (project.member.NormalMemberData) session.getAttribute("member");         
+         }
+         else
+         {
+            em = (project.member.EmployeeData) session.getAttribute("member");     
+         }
+      }
+      
+   
+      
+      if ( isLogin == 0 || isLogin == 1) {
+         if ( isLogin == 0)
+         {
+               
+   %>
+   <div align="right">
+      <table clsss="innor" id="innor">
+         <tr align=center>
+            <td colspan=3> <%= nor.name %> <% out.println( "( " + nor.ID + " ) 환영합니다.") ;%></td>
+            
+         </tr>
+         <form action="../member/logout.jsp">
+         <tr align=center>
+            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
+         </form>
+         <form action="../member/NormalMemberReadView.jsp">
+            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
+         </form>
+         </tr>
+         
+      </table>
+   </div>
+   <%      }
+         else
+         {
+            %>
+   <div align="right">
+      <table clsss="innor" id="innor">
+         <tr align=center>
+            <td colspan=3> <%= em.name %> <% out.println( "( " + em.ID + " ) 환영합니다.") ;%></td>
+            
+         </tr>
+         <form action="../member/logout.jsp">
+         <tr align=center>
+            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
+         </form>
+         <form action="../member/EmployeeMemberReadView.jsp">
+            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
+         </form>
+         </tr>
+         
+      </table>
+   </div>
+            <%
+         }
+      }
+      else {
+   %>
+      <div align="right">
+      
+      <table>
+      <form action="../member/loginView2.jsp">
+         <tr>
+            <td>아이디</td>
+            <td><input type="text" name="ID" value="s0001"></td>
+            <td><input class="myButton" type="submit" value="로그인"></td>
+         </tr>
+         <tr>
+            <td>비밀번호</td>
+            <td><input type="password" name="password" value="1234"></td>
+      </form>
+      <form action="../member/RealNameAuthenticationTypeView.jsp">
+            <td><input class="myButton" type="submit" value="회원가입"></td>
+      </form>e
+         </tr>
+      </table>
+   </div>
+   <% }
+   %>
+   </header>
 
 	<!-- 여기서 부터 화면에 목록을 출력함 여기는 도예가 수정할 것임 수정되면 붙여넣으면됨 -->
 

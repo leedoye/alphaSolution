@@ -11,7 +11,7 @@
 <!-- 엔티티 클래스 및 컨트롤 추가 하는곳 여기에 추가할것 -->
 <jsp:useBean id="community" class="project.community.Community" />
 <jsp:useBean id="communityControl" class="project.community.CommunityControl" />
-<jsp:useBean id="communityparticipant"class="project.community.CommunityParticipant" />
+<jsp:useBean id="communityparticipant" class="project.community.CommunityParticipant" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -39,7 +39,8 @@
 	<script type="text/javascript">
 	alert("모임방 수정 완료");
 	//모임방 상세조회 화면으로 전환
-	location.href="centerReadView.jsp";
+	
+	location.href="CommunityReadView.jsp";
 </script>
 
 </body>

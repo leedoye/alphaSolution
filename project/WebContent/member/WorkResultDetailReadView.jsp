@@ -1,18 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
+<% request.setCharacterEncoding("UTF-8"); %>
+
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.*"%>
+<%@ page import="project.member.EmployeeData"%>
+<%@ page import="project.workresult.WorkResult"%>
+<!-- 엔티티 클래스 및 컨트롤 추가 하는곳 여기는 기본셋팅이라 건들지 말것 -->
 <jsp:useBean id="memberControl" class="project.member.MemberControl" />
 <jsp:useBean id="em" class="project.member.EmployeeData" />
 <jsp:useBean id="nor" class="project.member.NormalMemberData" />
 <jsp:useBean id="mem" class="project.member.MemberData" />
+
+<!-- 엔티티 클래스 및 컨트롤 추가 하는곳 여기에 추가할것 -->
+<jsp:useBean id="workControl"
+	class="project.workresult.WorkResultControl" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
+<!-- 홈페이지 제목 부분  -->
+
+<title>직원회원가입</title>
+
+
+
+
+<!-- 기본셋팅 값 건들지말것 -->
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -23,9 +40,14 @@
 <title>Insert title here</title>
 <SCRIPT type="text/javascript" src="../js/function.js"></SCRIPT>
 
-</head>
-<body>
+<!-- 자신의 javascript를 추가하는 곳 -->
 
+
+</head>
+
+
+<body>
+	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
 	<header>
    <%
       
@@ -121,6 +143,10 @@
    <% }
    %>
    </header>
+
+	<!-- 여기서 부터 화면에 목록을 출력함 여기는 도예가 수정할 것임 수정되면 붙여넣으면됨 -->
+
+
 	<nav>
 	<table width="100%">
 		<tr align="center">
@@ -247,120 +273,112 @@
 		</tr>
 	</table>
 	</nav>
+	<!--  여기까지 화면의 목록!!!!!! -->
 
-	<h6 class=subTitle>교육센터 통합 운영관리 시스템 - 회원정보관리 - 회원정보 등록</h6>
 
-	<h3 class=mainTitle>회원 정보 등록 (회원가입)</h3>
+	<!-- 여기는 자신의 관리와 기능을 적을것 -->
+	<h6>교육센터 통합 운영관리 시스템 - 업무평가관리 - 업무평가 상세조회</h6>
 
-	<div width=1440 height=1080>
-		<div style="float: left" width=440>
-			<img src="../image/memberCreateView.jpg" height=500>
-		</div>
+	<!-- 여기는 자신의 기능을 적을것-->
+	<h3>업무 평가 상세조회 (업무평가)</h3>
 
-		<div width=1000>
-			<form id=memberCreateForm action=NormalMemberCreate.jsp method=post>
+	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
+
+
+	<%
+		String memberID = request.getParameter("memberID");
+		
+		
+		em = memberControl.selectEmployeeData(memberID);
+		ArrayList<WorkResult> w = new ArrayList<WorkResult>(); 
+		w = workControl.selectWorkResult(memberID);
+	%>
+
+
 				<fieldset>
-					<legend>개인정보입력(회원)</legend>
-					<table id=memberCreateTable>
+					<legend>회원정보</legend>
+					<table width=600px>
 						<tr>
-							<th colspan=3>회원정보입력</th>
-							<td></td>
+							<th>성명</th>
+							<%
+								if ( em != null )
+								{
+									%>
+									<td><%= em.name %></td>
+									<%
+								}
+								else
+								{
+									%><td></td><%
+								}
+							%>
+							<th>입사 일자</th>
+							<%
+								if ( em != null )
+								{
+									%>
+									<td><%= em.joinedDate %></td>
+									<%
+								}
+								else
+								{
+									%><td></td><%
+								}
+							%>
+							
+							<th>소속/직급</th>
+							<%
+								if ( em != null )
+								{
+									%>
+									<td><%=em.centerDepartmentName %> / <%= em.positionName %></td>
+									<%
+								}
+								else
+								{
+									%><td></td><%
+								}
+							%>
 						</tr>
 						<tr>
-							<th>*로그인 아이디</th>
-							<td><input type="text" name=ID></td>
-							<td><input type="button" class=myButton id=idCheck
-								value="중복체크"></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>*비밀번호</th>
-							<td><input type="password" name=password></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>*비밀번호확인</th>
-							<td><input type="password" id=checkPassword></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>*성명</th>
-							<td><input type="text" name=name></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>*거주지주소</th>
-							<td colspan=3><input type="text" name=address
-								style="width: 500px;"></td>
-
-						</tr>
-						<tr>
-							<th>*이메일</th>
-							<td colspan=2><input type="text" name=email
-								style="width: 300px;"></td>
-							<td><SELECT id="emailList">
-									<OPTION selected>직접입력</OPTION>
-									<OPTION>naver.com</OPTION>
-									<OPTION>daum.net</OPTION>
-									<OPTION>gmail.com</OPTION>
-							</SELECT></td>
-
-						</tr>
-						<tr>
-							<th>*휴대폰 번호</th>
-							<td colspan=3><input type="text" name=phoneNo
-								style="width: 300px;"></td>
-
-						</tr>
-						<tr>
-							<th>근무회사명</th>
-							<td><input type="text" name=centerName></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>부서명</th>
-							<td><input type="text" name=department></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>직위</th>
-							<td><input type="text" name=position></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>직무</th>
-							<td><input type="text" name=duty></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><input type="checkbox"
-								id=personalInformationCollectionUseAgreementStatus>
-								개인정보 수집 이용동의</td>
-							<td></td>
-							<td><input type="checkbox"
-								id=personalInformationOfferingAgreementStatus>개인정보 제공동의</td>
-
+							
+							
 						</tr>
 					</table>
-					<div></div>
+					
 				</fieldset>
-				<input type="hidden" name=memberType value=0>
-
-				<div align=right>
-					<input type="submit" class=myButton value="확인"> <input
-						type="button" class=myButton value="취소" onclick="cancleBtn()">
-				</div>
-			</form>
+				
+	<fieldset>
+		<legend>업무평가</legend>
+		<table width=600px> 
+			<tr align=center>
+				<th>번호</th>
+				<th>평가 점수</th>
+				<th>업무평가결과</th>
+				
+			</tr>
+			
+				<%
+					
+					for( int i = 0 ; i < w.size() ; ++i )
+					{
+						%>
+						<tr>
+							<td> <%= i+1 %></td>
+							<td><%= w.get(i).workResult  %></td>
+							<td> <textarea cols="45" rows="2" name="workData"> <%=w.get(i).workData %>
+							</textarea>
+							</td>
+						</tr>
+						<%
+					}
+				%>
+			
+		</table>
+		<div align=center>
+			<input type="button" class="myButton" id="cancleBtn"
+				onclick="cancleBtn()" value="뒤로가기">
 		</div>
-	</div>
-
+	</fieldset>
 </body>
 </html>

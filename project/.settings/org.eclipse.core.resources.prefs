@@ -1,4 +1,8 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/project/bulletinBoard/BulletinBoardControl.java=UTF-8
 encoding//src/project/bulletinBoard/BulletinBoardMessageControl.java=UTF-8
 encoding//src/project/member/MemberControl.java=UTF-8
+=======
+encoding//WebContent/main/mainView.jsp=UTF-8
+>>>>>>> d377158efa796ec30ea442c6ac84d237f933d705
