@@ -276,45 +276,40 @@
 
 
 	<!-- 여기는 자신의 관리와 기능을 적을것 -->
-	<h6>교육센터 통합 운영관리 시스템 - 모임방 - 모임방 참여신청자 목록</h6>
+	<h6>교육센터 통합 운영관리 시스템 - 모임방 - 모임방 참여회원 목록</h6>
 
 	<!-- 여기는 자신의 기능을 적을것-->
-	<h3>참여신청자 목록</h3>
+	<h3>모임방 참여회원 목록</h3>
 
 	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
 
 	<div align="center">
-		<form action="CommunityCreate.jsp">
 			<table width="30%" cellpadding="15">
 				
 				<tr align=center> <td colspan=4>&nbsp;</td> </tr>
 				<tr align=center> <td colspan=4>&nbsp;</td> </tr>
 				
 				<tr bgcolor="silver">
-					<th align="center">참여신청자</td>
+					<th align="center">참여회원</td>
 					<th colspan=2></td>
 				</tr>
 
 				<!-- 모임방 상세조회의 참여신청자목록 버튼 에 <input type="hidden" name=communityNo value=\<\%=community.communityNo%>> 가 추가되어 있어야 함 -->
 				<%
 				//int communityNo = Integer.valueOf(request.getParameter("communityNo"));
-				
 				int communityNo = 4;
+				
 				ArrayList<project.community.CommunityParticipant> participants = communityParticipantControl.selectCommunityParticipants(communityNo);
-				if( participants.size() == 0 )
-					;//href?로 모임방 상세조회화면으로 이동해주기!!!
-							
 				for (int i = 0; i < participants.size(); ++i) {
-                  	mem = memberControl.selectMemberData(participants.get(i).memberID);
-              	 	if( participants.get(i).participationSeparation == 3 ){
-		                  %>
-						<tr>
-							<td align="center"><%=mem.name %></td>
-							<td align="center" colspan=2><a method="get" href="CommunityParticipantRegisterView.jsp?value=<%=participants.get(i).memberID%>">등록</a></td>
-						</tr>
+					mem = memberControl.selectMemberData(participants.get(i).memberID);
+					if(participants.get(i).participationSeparation < 2){ // 모임방운영자(0) or 모임방참여회원(1)
+						%>
+							<tr>
+								<td align="center"><%=mem.name %></td>
+							</tr>
 						<%
-                 	}
-                }
+						 }
+					}
                   %>
 				
 				<!--  
@@ -322,31 +317,7 @@
 				<tr> <td colspan=4 align=center>페이지 표시</td> </tr>
 				-->
 			</table>
-			
-		</form>
 	</div>
-	
-	<% if( request.getParameter("value") != null ){ %>
-	<div>
-		<!-- 여기서부터 데이터 처리  -->
-	
-		<%
-		String memberID = request.getParameter("value");
-		out.print(memberID);
-		communityparticipant.communityNo = communityNo;
-		communityparticipant.memberID = memberID;
-		communityparticipant.participationSeparation = 1;
-		
-		communityParticipantControl.updateCommunityParticipant(communityparticipant);
-		%>
-	
-		<!-- 데이터 처리후 원래의 View로 돌려줄것 -->
-		<script type="text/javascript">
-			alert("참여 신청자 등록 완료");
-			//location.href="CommunityReadView.jsp";
-		</script>
-	</div>
-	<%} %>
 	
 </body>
 </html>

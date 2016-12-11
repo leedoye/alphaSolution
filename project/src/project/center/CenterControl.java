@@ -31,6 +31,26 @@ public class CenterControl {
 
 			Class.forName(driverName);
 			con = DriverManager.getConnection(dbURL, id, passwd);
+			
+			int max = -1 ;
+			 String selectQuery = "SELECT * FROM `"+ dbTable + "`";
+	         
+           //질의를 할 Statement 만들기 
+           stmt = con.createStatement();
+           
+           rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
+           
+           //rs의 내용을 가져옴
+           while (rs.next())
+           {
+              if ( max < rs.getInt("centerID"))
+                 max = rs.getInt("centerID");
+           }
+           
+           if( max == -1 )
+        	   centerID = 1;
+           else
+        	   centerID = max;
 
 		} catch (Exception e) {
 			e.printStackTrace();

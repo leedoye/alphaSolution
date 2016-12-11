@@ -91,7 +91,7 @@ public class CommunityParticipantControl {
 		
 		ArrayList<CommunityParticipant> arr = new ArrayList<CommunityParticipant>();
 		try {
-			String selectQuery = "SELECT * FROM `" + dbTable + "`";
+			String selectQuery = "SELECT * FROM `" + dbTable + "` where communityNo = " + communityNo;
 
 			// 질의를 할 Statement 만들기
 			stmt = con.createStatement();

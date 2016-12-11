@@ -1,5 +1,3 @@
-<%@page import="project.center.CenterControl"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -14,9 +12,10 @@
 
 <!-- 엔티티 클래스 및 컨트롤 추가 하는곳 여기에 추가할것 -->
 <jsp:useBean id="community" class="project.community.Community" />
-<jsp:useBean id="communityControl" class="project.community.CommunityControl" />
-<jsp:useBean id="communityparticipant" class="project.community.CommunityParticipant" />
-<jsp:useBean id="communityParticipantControl" class="project.community.CommunityParticipantControl" />
+<jsp:useBean id="communityControl"
+	class="project.community.CommunityControl" />
+<jsp:useBean id="communityparticipant"
+	class="project.community.CommunityParticipant" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -32,40 +31,39 @@
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../css/bootstrap-theme.css" />
 <link href="../css/innerStyle.css" type="text/css" rel="stylesheet" />
 <title>Insert title here</title>
 <SCRIPT type="text/javascript" src="../js/function.js"></SCRIPT>
 
 <!-- 자신의 javascript를 추가하는 곳 -->
-<script type="text/javascript">
-	function loadCommunityCreateView(){
-		location.href="CommunityCreateView.jsp";
-	}
-</script>
+
 </head>
 
 
 <body>
 	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
-
+	
 	<header> <%
- 	nor = (project.member.NormalMemberData) session.getAttribute("member");
+ 	nor = (project.member.NormalMemberData)session.getAttribute("member");
  	Integer o = (Integer) session.getAttribute("login");
  	Integer isLogin = -1;
 
+ 	
  	if (o != null) {
 
  		isLogin = (Integer) session.getAttribute("login");
  	}
  	else
  	{
- 	
-	%> <script>
-					alert("모임방 등록은 회원만 할 수 있습니다.");
-					history.go(-1);
-		</script> <%
+ 		%>
+ 			<script>
+ 			alert("모임방 등록은 회원만 할 수 있습니다.");
+ 			history.go(-1);
+ 			</script>
+ 		<%
  	}
 
  	if (isLogin == 0 || isLogin == 1) {
@@ -276,77 +274,41 @@
 
 
 	<!-- 여기는 자신의 관리와 기능을 적을것 -->
-	<h6>교육센터 통합 운영관리 시스템 - 모임방 - 모임방 참여신청자 목록</h6>
+	<h6>교육센터 통합 운영관리 시스템 - 모임방 - 모임방 수정</h6>
 
 	<!-- 여기는 자신의 기능을 적을것-->
-	<h3>참여신청자 목록</h3>
+	<h3>모임방 수정</h3>
 
 	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
-
-	<div align="center">
-		<form action="CommunityCreate.jsp">
-			<table width="30%" cellpadding="15">
+	<%
+	//모임방 상세조회에서 수정 버튼과 함께 communityNo 넘겨주는 태그 만들어 놓기
+	String communityNo = request.getParameter("value");
+	%>
+	
+	<div align="left"   >
+		<form action="CommunityUpdate.jsp">
+			<table width="600px" cellpadding="1">
 				
-				<tr align=center> <td colspan=4>&nbsp;</td> </tr>
-				<tr align=center> <td colspan=4>&nbsp;</td> </tr>
-				
-				<tr bgcolor="silver">
-					<th align="center">참여신청자</td>
-					<th colspan=2></td>
+				<tr>
+					<td align=right>모임방 명</td>
+					<td><input type="text" name=communityName size=60 style="width: 200px;"></td>
 				</tr>
-
-				<!-- 모임방 상세조회의 참여신청자목록 버튼 에 <input type="hidden" name=communityNo value=\<\%=community.communityNo%>> 가 추가되어 있어야 함 -->
-				<%
-				//int communityNo = Integer.valueOf(request.getParameter("communityNo"));
 				
-				int communityNo = 4;
-				ArrayList<project.community.CommunityParticipant> participants = communityParticipantControl.selectCommunityParticipants(communityNo);
-				if( participants.size() == 0 )
-					;//href?로 모임방 상세조회화면으로 이동해주기!!!
-							
-				for (int i = 0; i < participants.size(); ++i) {
-                  	mem = memberControl.selectMemberData(participants.get(i).memberID);
-              	 	if( participants.get(i).participationSeparation == 3 ){
-		                  %>
-						<tr>
-							<td align="center"><%=mem.name %></td>
-							<td align="center" colspan=2><a method="get" href="CommunityParticipantRegisterView.jsp?value=<%=participants.get(i).memberID%>">등록</a></td>
-						</tr>
-						<%
-                 	}
-                }
-                  %>
+				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 				
-				<!--  
-				<tr align=center> <td colspan=4>&nbsp;</td> </tr>
-				<tr> <td colspan=4 align=center>페이지 표시</td> </tr>
-				-->
+				<tr>
+					<td align=right>모임방 설명</td>
+					<td><textarea cols="60" rows="10" name=communityExplanation></textarea></td>
+				</tr>
+				
+				<tr>
+					<input type="hidden" name=communityNo value=<%=communityNo%>>
+					<td colspan=2 align="center"><input type="submit" class="myButton" value="등록" ><input type="button" onclick="cancleBtn()" class="myButton" value="취소"></td>
+				</tr>
+				
 			</table>
-			
-		</form>
+			</form>
 	</div>
-	
-	<% if( request.getParameter("value") != null ){ %>
-	<div>
-		<!-- 여기서부터 데이터 처리  -->
-	
-		<%
-		String memberID = request.getParameter("value");
-		out.print(memberID);
-		communityparticipant.communityNo = communityNo;
-		communityparticipant.memberID = memberID;
-		communityparticipant.participationSeparation = 1;
-		
-		communityParticipantControl.updateCommunityParticipant(communityparticipant);
-		%>
-	
-		<!-- 데이터 처리후 원래의 View로 돌려줄것 -->
-		<script type="text/javascript">
-			alert("참여 신청자 등록 완료");
-			//location.href="CommunityReadView.jsp";
-		</script>
-	</div>
-	<%} %>
 	
 </body>
 </html>

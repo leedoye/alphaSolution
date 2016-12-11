@@ -41,8 +41,7 @@
 	<script type="text/javascript">
 	alert("신청완료");
 	location.href="CommunityReadView.jsp";
-	
-</script>
+	</script>
 
 </body>
 </html>

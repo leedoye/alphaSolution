@@ -11,7 +11,7 @@ public class CommunityControl {
 	static final String passwd = "qkqhqkqh2";
 	static final String driverName = "com.mysql.jdbc.Driver";
 	static final String dbURL = "jdbc:mysql://localhost:3306/software"; //디비스키마부분다들만들때software
-	public static int communityNo = 6;
+	public static int communityNo = 0;
 
 	Connection con = null;
 	Statement stmt = null;
@@ -25,7 +25,27 @@ public class CommunityControl {
 
 			Class.forName(driverName);
 			con = DriverManager.getConnection(dbURL, id, passwd);
-
+			
+			int max = -1 ;
+			 String selectQuery = "SELECT * FROM `"+ dbTable + "`";
+	         
+            //질의를 할 Statement 만들기 
+            stmt = con.createStatement();
+            
+            rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
+            
+            //rs의 내용을 가져옴
+            while (rs.next())
+            {
+               if ( max < rs.getInt("communityNo"))
+                  max = rs.getInt("communityNo");
+            }
+            
+            if( max == -1 )
+            	communityNo = 1;
+            else
+            	communityNo = max;
+            
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
