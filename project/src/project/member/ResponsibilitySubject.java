@@ -17,4 +17,6 @@ public class ResponsibilitySubject {
 		this.memberID = memberID;
 	}
 	
+	
+	
 }

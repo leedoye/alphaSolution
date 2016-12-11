@@ -21,7 +21,7 @@
     <input type="submit" value="삭제">
 </form>
 </center>
-<hr>
+<hr><hr>
 <%
 //인코딩 필수
 request.setCharacterEncoding("UTF-8");

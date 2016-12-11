@@ -142,9 +142,6 @@ public class MemberControl {
 			e.printStackTrace();
 		}
 		
-		
-		
-		
 		System.out.println("employee 테이블에 새로운 레코드를 추가했습니다.");        // 성공시 메시지 출력
 		
 		return  ;
@@ -481,6 +478,53 @@ try {
 
 	}
 	
+	public MemberData selectMemberData(String memberID)
+	{
+		try
+        {
+			String selectQuery = "SELECT * FROM `" + dbTable +"` where memberID = '" + memberID + "'";
+			
+            //질의를 할 Statement 만들기 
+            stmt = con.createStatement();
+            
+            rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
+            
+            System.out.println("--- 테이블 student 내용 조회 ---");
+            
+            //rs의 내용을 가져옴
+            if (rs.next())
+            {
+            	
+            	MemberData em = new MemberData();
+            	
+            	em.memberID = rs.getString(1);
+            	em.ID = rs.getString(2);
+            	em.password = rs.getString(3);
+            	em.name = rs.getString(4);
+            	em.genderStatus = rs.getInt(5);
+            	em.truthResidence = rs.getString(6);
+            	em.homePhoneNo = rs.getString(7);
+            	em.phoneNo = rs.getString(8);
+            	em.emergencyContact = rs.getString(9);
+            	em.email = rs.getString(10);
+            	em.address = rs.getString(11);
+            	
+            	
+            	 return em;
+            }
+           
+            
+        }
+        catch (Exception e)
+        {            
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+			
+		return null;
+
+	}
+	
 	public EmployeeData selectEmployeeData(String memberID)
 	{
 		try
@@ -547,6 +591,142 @@ try {
 
 	}
 	
+	public ArrayList<EmployeeData> selectEmployeeDatas()
+	{
+		ArrayList<EmployeeData> arr = new ArrayList<EmployeeData>();
+		
+		try
+        {
+			String selectQuery = "SELECT * FROM `" + dbTable +"`" ;
+			
+            //질의를 할 Statement 만들기 
+            stmt = con.createStatement();
+            
+            rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
+            
+            System.out.println("--- 테이블 student 내용 조회 ---");
+            
+            //rs의 내용을 가져옴
+            while (rs.next())
+            {
+            	
+            	EmployeeData em = new EmployeeData();
+            	
+            	em.memberID = rs.getString(1);
+            	em.ID = rs.getString(2);
+            	em.password = rs.getString(3);
+            	em.name = rs.getString(4);
+            	em.genderStatus = rs.getInt(5);
+            	em.truthResidence = rs.getString(6);
+            	em.homePhoneNo = rs.getString(7);
+            	em.phoneNo = rs.getString(8);
+            	em.emergencyContact = rs.getString(9);
+            	em.email = rs.getString(10);
+            	em.address = rs.getString(11);
+            	
+            	String subSql = "SELECT * FROM employeedata where memberID = '" + em.memberID +"'";
+            	Statement substmt = con.createStatement();
+            	
+            	
+            	ResultSet subRs = substmt.executeQuery(subSql);
+            	
+            	if(subRs.next()){
+            		em.memberID = subRs.getString(1);
+            		em.centerDepartmentName = subRs.getString(2);
+            		em.joinedDate = subRs.getString(3);
+            		em.profilePhoto = subRs.getString(4);
+            		em.enName = subRs.getString(5);
+            		em.positionName = subRs.getString(5);
+            	}
+            	
+            	
+            	
+                
+                //여러 데이터 타입이 가능함
+                //blob도 잇음 
+            	 arr.add(em);
+            }
+           
+            
+        }
+        catch (Exception e)
+        {            
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+			
+		return arr;
+
+	}
+	
+	public ArrayList<EmployeeData> selectEmployeeDatas(String name)
+	{
+		ArrayList<EmployeeData> arr = new ArrayList<EmployeeData>();
+		
+		try
+        {
+			String selectQuery = "SELECT * FROM `" + dbTable +"` where name = '" + name + "'" ;
+			
+            //질의를 할 Statement 만들기 
+            stmt = con.createStatement();
+            
+            rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
+            
+            System.out.println("--- 테이블 student 내용 조회 ---");
+            
+            //rs의 내용을 가져옴
+            while (rs.next())
+            {
+            	
+            	EmployeeData em = new EmployeeData();
+            	
+            	em.memberID = rs.getString(1);
+            	em.ID = rs.getString(2);
+            	em.password = rs.getString(3);
+            	em.name = rs.getString(4);
+            	em.genderStatus = rs.getInt(5);
+            	em.truthResidence = rs.getString(6);
+            	em.homePhoneNo = rs.getString(7);
+            	em.phoneNo = rs.getString(8);
+            	em.emergencyContact = rs.getString(9);
+            	em.email = rs.getString(10);
+            	em.address = rs.getString(11);
+            	
+            	String subSql = "SELECT * FROM employeedata where memberID = '" + em.memberID +"'";
+            	Statement substmt = con.createStatement();
+            	
+            	
+            	ResultSet subRs = substmt.executeQuery(subSql);
+            	
+            	if(subRs.next()){
+            		em.memberID = subRs.getString(1);
+            		em.centerDepartmentName = subRs.getString(2);
+            		em.joinedDate = subRs.getString(3);
+            		em.profilePhoto = subRs.getString(4);
+            		em.enName = subRs.getString(5);
+            		em.positionName = subRs.getString(5);
+            	}
+            	
+            	
+            	
+                
+                //여러 데이터 타입이 가능함
+                //blob도 잇음 
+            	 arr.add(em);
+            }
+           
+            
+        }
+        catch (Exception e)
+        {            
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+			
+		return arr;
+
+	}
+	
 	public ArrayList<Account> selectAccount(String memberID)
 	{
 		ArrayList<Account> arr = new ArrayList<Account>();
@@ -564,7 +744,6 @@ try {
             //rs의 내용을 가져옴
             while (rs.next())
             {
-            	
             	
             	Account a = new Account() ;
             	
@@ -694,6 +873,97 @@ try {
         }
 		
 		return null ;
+	}
+	public ArrayList<EmployeeData> findMember(String name, String phoneNo)
+	{
+		ArrayList<EmployeeData> arr = new ArrayList<EmployeeData>();
+		try
+        {
+			String selectQuery = "SELECT * FROM memberdata where name = '" + name + "' AND phoneNo= '" + phoneNo +"'";
+			
+            //질의를 할 Statement 만들기 
+            stmt = con.createStatement();
+            
+            rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
+            
+            System.out.println("--- 테이블 memberdata 내용 조회 ---");
+            
+            //rs의 내용을 가져옴
+            while (rs.next())
+            {
+            	
+            	
+            	
+            	EmployeeData a = new EmployeeData() ;
+            	
+            	a.memberID = rs.getString("memberID");
+            	
+            	if ( a.memberID.charAt(0) == 'S' || a.memberID.charAt(0) == 'A')
+            		continue ;
+            	
+            	a.name = rs.getString("name");
+            	a.phoneNo = rs.getString("phoneNo");
+            	
+            	
+            	selectQuery = "SELECT * FROM employeedata where memberID = '" + a.memberID + "'";
+    			
+                //질의를 할 Statement 만들기 
+                stmt = con.createStatement();
+                
+                rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
+                
+                if ( rs.next() ){
+                	
+                	a.centerDepartmentName = rs.getString("centerDepartmentName");
+                	a.positionName = rs.getString("positionName");
+                	a.joinedDate = rs.getString("joinedDate");
+                }
+                
+                System.out.println("--- 테이블 memberdata 내용 조회 ---");
+            	
+            	arr.add(a);
+            }
+           
+            
+        }
+        catch (Exception e)
+        {            
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+			
+		return arr;
+	}
+	
+	public boolean isID(String id)
+	{
+		try
+        {
+			String selectQuery = "SELECT * FROM memberdata where id = '" + id + "' ";
+			
+            //질의를 할 Statement 만들기 
+            stmt = con.createStatement();
+            
+            rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
+            
+            System.out.println("--- 테이블 memberdata 내용 조회 ---");
+            
+            //rs의 내용을 가져옴
+            if (rs.next())
+            {
+            	return true ;
+            	
+            }
+           
+            
+        }
+        catch (Exception e)
+        {            
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+			
+		return false;
 	}
 	public void close()
 	{

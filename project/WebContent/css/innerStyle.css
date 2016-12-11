@@ -1,24 +1,24 @@
 @CHARSET "EUC-KR";
 
 header {
-	background-color:#f3f2f1;
-	background-image: url('../image/logo.png');
-	background-repeat:no-repeat;
-	background-size:100%
-	height: 70px;
+   background-color:#f3f2f1;
+   background-image: url('../image/logo.png');
+   background-repeat:no-repeat;
+   background-size:100%
+   height: 70px;
 }
 
 nav {
-	background-color: #aaedf9;
-	height: 40px;
+   background-color: #d9edf7;
+   height: 40px;
 }
 
 section{
-	
-	background-size:auto
+   
+   background-size:auto
 }
 
 body{
-	background-color:#c7e1c1;
-	background-size:100% 100%
+   background-color:#e8e8e8;
+   background-size:100% 100%
 }
