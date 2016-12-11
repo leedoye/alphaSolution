@@ -292,12 +292,12 @@
 				
 	%>
 
-	<div>
+	<div align="center">
 		<form action="WorkResultCreateMemberFind.jsp">
 			<div>
 				<fieldset>
 					<legend>직원정보조회</legend>
-					<table>
+					<table width=600px>
 						<tr>
 							<th>직원이름</th>
 							<td><input type="text" name=name></td>
@@ -314,7 +314,7 @@
 
 		<form action="WorkResultCreate.jsp">
 
-			<div>
+			<div align=center>
 				<fieldset>
 					<legend>회원정보</legend>
 					<table width=600px>
@@ -390,85 +390,85 @@
 
 						<tr>
 							<th rowspan=8>업무 수행능력</th>
-							<td>직무와 관련된 지식을 숙지하고 있다.</td>
+							<td>직무와 관련된 지식을 충분히 숙지하고 있다.</td>
 							<td><input type="text" name=workResult1></td>
 						</tr>
 
 						<tr>
 
-							<td>직무와 관련된 지식을 숙지하고 있다.</td>
+							<td>업무를 완수하려는 잭임감이 강하다.</td>
 							<td><input type="text" name=workResult2></td>
 						</tr>
 
 						<tr>
 
-							<td>직무와 관련된 지식을 숙지하고 있다.</td>
+							<td>주어진 시간 내 계획성 있게 업무를 수행한다.</td>
 							<td><input type="text" name=workResult3></td>
 						</tr>
 
 						<tr>
 
-							<td>직무와 관련된 지식을 숙지하고 있다.</td>
+							<td>업무 수행에 따른 기록 정리 등 마무리가 완벽하다.</td>
 							<td><input type="text" name=workResult4></td>
 						</tr>
 
 						<tr>
 
-							<td>직무와 관련된 지식을 숙지하고 있다.</td>
+							<td>문제 발생 시 우선순위, 긴급함을 식별하여 대응한다.</td>
 							<td><input type="text" name=workResult5></td>
 						</tr>
 
 						<tr>
 
-							<td>직무와 관련된 지식을 숙지하고 있다.</td>
+							<td>업무와 관련하여 알게 된 정보를 신속, 정확히 보고한다.</td>
 							<td><input type="text" name=workResult6></td>
 						</tr>
 
 						<tr>
 
-							<td>직무와 관련된 지식을 숙지하고 있다.</td>
+							<td>업무에 대한 연구개발 및 개선 제안에 적극적이다.</td>
 							<td><input type="text" name=workResult7></td>
 						</tr>
 
 						<tr>
 
-							<td>직무와 관련된 지식을 숙지하고 있다.</td>
+							<td>수행되어진 업무를 질적, 양적으로 feed-back한다.</td>
 							<td><input type="text" name=workResult8></td>
 						</tr>
 
 						<tr>
 							<th rowspan=6>업무자세 및 인간관계</th>
-							<td>업무의 목표 달성을 위해 성실하게 일한다.</td>
+							<td>업무의 목표달성을 위해 성실하게 일한다.</td>
 							<td><input type="text" name=workResult9></td>
 						</tr>
 
 						<tr>
 
-							<td>업무의 목표 달성을 위해 성실하게 일한다.</td>
+							<td>근태 사항이 양호하다.</td>
 							<td><input type="text" name=workResult10></td>
 						</tr>
 
 						<tr>
 
-							<td>업무의 목표 달성을 위해 성실하게 일한다.</td>
+							<td>부서의 업무에 적극적으로 참여한다.</td>
 							<td><input type="text" name=workResult11></td>
 						</tr>
 
 						<tr>
 
-							<td>업무의 목표 달성을 위해 성실하게 일한다.</td>
+							<td>부서 내/외 직원들과 협력관계를 유지하려고 노력한다.</td>
 							<td><input type="text" name=workResult12></td>
 						</tr>
 
 						<tr>
 
-							<td>업무의 목표 달성을 위해 성실하게 일한다.</td>
+							<td>정해진 규율 및 방침을 정확히 이해하고 이에 성실히 따른다.</td>
 							<td><input type="text" name=workResult13></td>
 						</tr>
 
 						<tr>
 
-							<td>업무의 목표 달성을 위해 성실하게 일한다.</td>
+							<td>동료들과 원만하고 성실한 인간관계를 유지한다.</td>
 							<td><input type="text" name=workResult14></td>
 						</tr>
 						<tr >
@@ -482,7 +482,7 @@
 							</td>
 						</tr>
 						<tr align=center>
-							<td colspan=2>
+							<td colspan=3>
 							<input type="submit" class="myButton" id="addBtn" value="등록">
 							<input type="button" class="myButton" id="cancleBtn"
 							onclick="cancleBtn()" value="취소">

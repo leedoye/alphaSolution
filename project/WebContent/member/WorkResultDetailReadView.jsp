@@ -294,7 +294,7 @@
 		w = workControl.selectWorkResult(memberID);
 	%>
 
-
+	<div align="center">
 				<fieldset>
 					<legend>회원정보</legend>
 					<table width=600px>
@@ -364,9 +364,9 @@
 					{
 						%>
 						<tr>
-							<td> <%= i+1 %></td>
-							<td><%= w.get(i).workResult  %></td>
-							<td> <textarea cols="45" rows="2" name="workData"> <%=w.get(i).workData %>
+							<td align="center"> <%= i+1 %></td>
+							<td align="center"><%= w.get(i).workResult  %></td>
+							<td align="center"> <textarea cols="45" rows="2" name="workData"> <%=w.get(i).workData %>
 							</textarea>
 							</td>
 						</tr>
@@ -380,5 +380,6 @@
 				onclick="cancleBtn()" value="뒤로가기">
 		</div>
 	</fieldset>
+	</div>
 </body>
 </html>

@@ -255,12 +255,12 @@
 		nor = (project.member.NormalMemberData) session.getAttribute("member");
 	%>
 
-	<div>
+	<div align=center>
 		<div>
 			<form id=NormalMemberReadForm>
 				<fieldset>
 					<legend>회원정보</legend>
-					<table id=NormalMemberReadTable>
+					<table width=400px>
 						<tr>
 							<th>회원 번호</th>
 							<td><%=nor.memberID%></td>
@@ -327,13 +327,18 @@
 							<td></td>
 							<td></td>
 						</tr>
-					</table>
-				</fieldset>
-				<div align=right>
-					<input type="button" class=myButton id=NormalMemberUpdateBtn
+						<tr>
+						<td colspan=2 align=center>
+						<input type="button" class=myButton id=NormalMemberUpdateBtn
 						value="수정" onclick="normalMemberUpdateBtn()"> <input
 						type="button" class=myButton id=MemberDeleteBtn value="삭제"
 						onclick="memberDeleteBtn()">
+						</td> 
+						</tr>
+					</table>
+				</fieldset>
+				<div align=right>
+					
 				</div>
 			</form>
 		</div>

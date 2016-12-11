@@ -250,18 +250,17 @@
 	<h6>교육센터 통합 운영관리 시스템 - 회원정보관리 - 실명 인증 종류 선택</h6>
 
 	<h3>회원 정보 등록 (회원가입)</h3>
-	<div>
+	<div align="center">
 
-		<div style="float: left" width=440 height=1080>
-			<img src="../image/memberCreateView.jpg" height=500>
-		</div>
-		<div>
+		
+		<div align="center">
 			<h3>실명인증선택</h3>
 			<hr>
 			<input type="button" value="아이핀 인증" class=myButton id=normalMemberBtn
-				onclick="getMemberType()"> <input type="button"
+				onclick="getMemberType()" style="width:150px; height:150px; font-size:20px;">
+				 <input type="button"
 				value="휴대폰 인증" class=myButton id=employeeMemberBtn
-				onclick="getMemberType()">
+				onclick="getMemberType()" style="width:150px; height:150px; font-size:20px;">
 		</div>
 	</div>
 

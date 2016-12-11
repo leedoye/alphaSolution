@@ -253,20 +253,15 @@
 	<div>
 		<h3 class=mainTitle>회원 정보 등록 (회원가입)</h3>
 	</div>
-	<div>
+	<div align=center>
 
-
-
-		<div style="float: left" width=440 height=1080>
-			<img src="../image/memberCreateView.jpg" height=500>
-		</div>
 		<div>
 			<h3>회원 종류 선택</h3>
 			<hr>
 			<input type="button" value="일반회원" class=myButton id=normalMemberBtn
-				onclick="createNormalMember()"> <input type="button"
+				onclick="createNormalMember()" style="width:150px; height:150px; font-size:20px;"> <input type="button"
 				value="직원" class=myButton id=employeeMemberBtn
-				onclick="createEmployeeMember()">
+				onclick="createEmployeeMember()" style="width:150px; height:150px; font-size:20px;">
 		</div>
 	</div>
 

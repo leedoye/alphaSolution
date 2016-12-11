@@ -269,14 +269,14 @@
 
 <!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
 
-<div>
+<div align=center>
 	
 	
-	<div >
-		<form id=memberCreateForm action="NormalMemberCreate.jsp" >
+	<div align=center>
+		<form id=memberCreateForm action="NormalMemberCreate.jsp" onSubmit="return employeeFormCheck(this)" >
 		<fieldset >
 		<legend>개인정보입력(직원)</legend>
-		<table width=600px>
+		<table width=600px align=center>
 			<tr >
 				<th colspan=3>개인정보입력</th>
 				<td></td>
@@ -305,7 +305,7 @@
 		
 		<fieldset id=contact>
 		<legend>연락처 정보 입력</legend>
-		<table width=600px>
+		<table width=800px>
 		
 			<tr>
 				<th>*한글성명</th>
@@ -340,19 +340,19 @@
 			</tr>
 			<tr>
 				<th>*집 전화번호</th>
-				<td > <input type="text" id=homePhoneNo  style="width:300px; "></td>
+				<td > <input type="text" name=homePhoneNo  style="width:300px; "></td>
 				<td></td>
 				<td></td>
 			</tr>
 			<tr>
 				<th>*휴대폰 번호</th>
-				<td > <input type="text" id=phoneNo  style="width:300px; " ></td>
+				<td > <input type="text" name=phoneNo  style="width:300px; " ></td>
 				<td></td>
 				<td></td>
 			</tr>
 			<tr>
-				<th>*비상연락 전화번호번호</th>
-				<td > <input type="text" id=emergencyContact  style="width:300px; " ></td>
+				<th>*비상연락 전화번호</th>
+				<td > <input type="text" name=emergencyContact  style="width:300px; " ></td>
 				<td></td>
 				<td></td>
 			</tr>
@@ -439,18 +439,31 @@
 				
 			</tr>
 			
+			<tr align=center>
+			<td colspan=3>
+			<input type="checkbox" name=personalInformationCollectionUseAgreementStatus style="float:left;" value="개인정보 수집 이용동의"> 개인정보 수집 이용동의
 			
+			</td>
+			<tr align=center>
+			<td colspan=3>
+			<input type="checkbox" name=personalInformationOfferingAgreementStatus style="float:left;" value="개인정보 제공동의"> 개인정보 제공동의
+			</td>
 			
+			<tr>
+			</tr>
+			<tr>
+			<td colspan=3 align=center>
+			<input type="submit" class=myButton  value="확인">
+				<input type="button" class=myButton  value="취소" onclick="cancleBtn()"></td>
+			</tr>
 			</table>
 			<div>
-				<input type="checkbox" id=personalInformationCollectionUseAgreementStatus> 개인정보 수집 이용동의
-				<input type="checkbox" id=personalInformationOfferingAgreementStatus> 개인정보 제공동의
+				
 			</div>
 			</fieldset>
 			<input type="hidden" name=memberType value=1>
 			<div align=right>
-				<input type="submit" class=myButton  value="확인">
-				<input type="button" class=myButton  value="취소" onclick="cancleBtn()">
+				
 			</div>
 		</form>
 	</div>

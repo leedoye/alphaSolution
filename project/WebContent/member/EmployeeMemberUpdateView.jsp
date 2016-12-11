@@ -7,7 +7,7 @@
 <jsp:useBean id="em" class="project.member.EmployeeData" />
 <jsp:useBean id="nor" class="project.member.NormalMemberData" />
 <jsp:useBean id="mem" class="project.member.MemberData" />
-<jsp:setProperty name="nor" property="*" />
+<jsp:setProperty name="em" property="*" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -251,13 +251,13 @@
 
 	<h3>직원 정보 수정</h3>
 
-	<div width=1440 height=1920>
+	<div align=center>
 
-		<div width=1000>
-			<form id=memberCreateForm action="EmployeeMemberUpdate.jsp">
+		<div align=center>
+			<form id=memberCreateForm action="EmployeeMemberUpdate.jsp" onSubmit="return employeeFormUpdateCheck(this)">
 				<fieldset>
 					<legend>비밀번호변경</legend>
-					<table id=memberCreateTable>
+					<table width=600px>
 
 						<tr>
 							<th>로그인 아이디</th>
@@ -282,7 +282,7 @@
 
 				<fieldset id=contact>
 					<legend>개인정보</legend>
-					<table>
+					<table width=800px>
 
 						<tr>
 							<th>한글성명</th>
@@ -293,12 +293,12 @@
 
 						<tr>
 							<th>성별</th>
-							<td colspan=2><input type="radio" id=genderStatus
+							<td colspan=2><input type="radio" id=genderStatus value=1
 								name=genderStatus
 								<%if (em.genderStatus == 1) {
 				out.write("checked");
 			}%>>
-								남자 <input type="radio" id=genderStatus name=genderStatus
+								남자 <input type="radio" id=genderStatus name=genderStatus value=0
 								<%if (em.genderStatus == 0) {
 				out.write("checked");
 			}%>>
@@ -338,7 +338,7 @@
 						<tr>
 							<th>비상연락 전화번호번호</th>
 							<td><input type="text" name=emergencyContact
-								value=<%=em.emergencyContact%>"></td>
+								value=<%=em.emergencyContact%>></td>
 							<td></td>
 							<td></td>
 						</tr>
@@ -362,7 +362,7 @@
 
 				<fieldset>
 					<legend>계좌정보변경</legend>
-					<table>
+					<table width=600px>
 						<tr>
 							<th>은행코드</th>
 							<td><input type="text" name=bankCode></td>
@@ -382,7 +382,7 @@
 					<legend>추가정보변경</legend>
 
 
-					<table>
+					<table width=600px>
 
 						<tr>
 							<th>근무센터명</th>
@@ -404,21 +404,23 @@
 							<td></td>
 						</tr>
 						<tr>
-							<th>정보처리기사</th>
-							<th>자격증</th>
+							<td>정보처리기사</th>
+							<td>자격증</th>
 							<td>-</td>
 							<td></td>
 						</tr>
 
 
-
+						<tr>
+						<td colspan=2 align=center>
+						<input type="submit" class=myButton value="수정"> 
+						<input type="button" class=myButton value="취소" onclick="cancleBtn()">
+						</td>
+						</tr>
 					</table>
 
 				</fieldset>
-				<div align=right>
-					<input type="submit" class=myButton value="수정"> <input
-						type="button" class=myButton value="취소" onclick="cancleBtn()">
-				</div>
+				
 			</form>
 		</div>
 	</div>

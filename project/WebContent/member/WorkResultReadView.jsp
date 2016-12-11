@@ -293,12 +293,12 @@
 	
 %>
 <form>
-<div>
+<div align="center">
 	<form action="#">
 			<div>
 				<fieldset>
 					<legend>직원정보조회</legend>
-					<table>
+					<table width="600px">
 						<tr>
 							<th>직원이름</th>
 							<td><input type="text" name=name></td>

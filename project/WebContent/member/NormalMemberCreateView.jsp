@@ -252,13 +252,11 @@
 
 	<h3 class=mainTitle>회원 정보 등록 (회원가입)</h3>
 
-	<div width=1440 height=1080>
-		<div style="float: left" width=440>
-			<img src="../image/memberCreateView.jpg" height=500>
-		</div>
+	<div align=center>
+		
 
-		<div width=1000>
-			<form id=memberCreateForm action=NormalMemberCreate.jsp method=post>
+		<div >
+			<form id=memberCreateForm action="NormalMemberCreate.jsp" method="post" onSubmit="return memberFormCheck( this )">
 				<fieldset>
 					<legend>개인정보입력(회원)</legend>
 					<table id=memberCreateTable>
@@ -268,20 +266,21 @@
 						</tr>
 						<tr>
 							<th>*로그인 아이디</th>
-							<td><input type="text" name=ID></td>
-							<td><input type="button" class=myButton id=idCheck
+							
+							<td><input type="text" name=ID id=ID></td>
+							<td><input type="button" class=myButton  onclick="idCheck()"
 								value="중복체크"></td>
 							<td></td>
+							
 						</tr>
 						<tr>
 							<th>*비밀번호</th>
 							<td><input type="password" name=password></td>
 							<td></td>
-							<td></td>
 						</tr>
 						<tr>
 							<th>*비밀번호확인</th>
-							<td><input type="password" id=checkPassword></td>
+							<td><input type="password" name=checkPassword></td>
 							<td></td>
 							<td></td>
 						</tr>
@@ -342,23 +341,28 @@
 						<tr>
 							<td></td>
 							<td><input type="checkbox"
-								id=personalInformationCollectionUseAgreementStatus>
+								name=personalInformationCollectionUseAgreementStatus>
 								개인정보 수집 이용동의</td>
 							<td></td>
 							<td><input type="checkbox"
-								id=personalInformationOfferingAgreementStatus>개인정보 제공동의</td>
+								name=personalInformationOfferingAgreementStatus>개인정보 제공동의</td>
 
 						</tr>
+						
+						<tr>
+							<td colspan=2 align=center>
+							<input type="hidden" name=memberType value=0>
+							<input type="submit" class=myButton value="확인"> 
+							<input type="button" class=myButton value="취소" onclick="cancleBtn()">
+							</td>
+						</tr>
+						
 					</table>
-					<div></div>
+					
 				</fieldset>
-				<input type="hidden" name=memberType value=0>
+				</form>
+			
 
-				<div align=right>
-					<input type="submit" class=myButton value="확인"> <input
-						type="button" class=myButton value="취소" onclick="cancleBtn()">
-				</div>
-			</form>
 		</div>
 	</div>
 

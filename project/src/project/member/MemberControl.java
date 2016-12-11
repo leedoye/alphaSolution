@@ -745,7 +745,6 @@ try {
             while (rs.next())
             {
             	
-            	
             	Account a = new Account() ;
             	
             	a.accountNumber = rs.getString(1);
@@ -934,6 +933,37 @@ try {
         }
 			
 		return arr;
+	}
+	
+	public boolean isID(String id)
+	{
+		try
+        {
+			String selectQuery = "SELECT * FROM memberdata where id = '" + id + "' ";
+			
+            //질의를 할 Statement 만들기 
+            stmt = con.createStatement();
+            
+            rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
+            
+            System.out.println("--- 테이블 memberdata 내용 조회 ---");
+            
+            //rs의 내용을 가져옴
+            if (rs.next())
+            {
+            	return true ;
+            	
+            }
+           
+            
+        }
+        catch (Exception e)
+        {            
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+			
+		return false;
 	}
 	public void close()
 	{

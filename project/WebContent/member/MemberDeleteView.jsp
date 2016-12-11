@@ -249,11 +249,11 @@
 
 	<h3>회원 정보 삭제</h3>
 
-	<div>
+	<div align=center>
 		<form name=f action="MemberDelete.jsp">
 			<fieldset>
 				<legend> 회원탈퇴 </legend>
-				<table>
+				<table width=600px>
 
 					<%
 						if (isLogin == 0) {
@@ -288,12 +288,17 @@
 					<%
 						}
 					%>
-
-				</table>
-				<div align=right>
+					<tr>
+					<td colspan=2 align=center>
 					<input type="submit" id=memberDeleteBtn class=myButton value="삭제">
 					<input type="button" id=cancle class=myButton value="취소"
 						onclick="cancleBtn()">
+					</td>
+					</tr>
+
+				</table>
+				<div align=right>
+					
 				</div>
 			</fieldset>
 

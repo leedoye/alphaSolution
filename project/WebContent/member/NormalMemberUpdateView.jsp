@@ -257,13 +257,13 @@
 	%>
 
 
-	<div width=1440 height=1080>
+	<div align=center>
 
 		<div width=1000>
-			<form id=memberCreateForm action="NormalMemberUpdate.jsp" method=post>
+			<form id=memberCreateForm action="NormalMemberUpdate.jsp" method=post onSubmit="return memberFormUpdateCheck( this )">
 				<fieldset>
 					<legend>비밀번호변경</legend>
-					<table id=memberUpdateTable>
+					<table width=600px>
 						<tr>
 							<th colspan=3>회원정보입력</th>
 							<td></td>
@@ -291,7 +291,7 @@
 				</fieldset>
 				<fieldset>
 					<legend>개인정보</legend>
-					<table>
+					<table width="600px">
 						<tr>
 							<th>*성명</th>
 							<td><input type="text" name=name value=<%=nor.name%>>
@@ -352,12 +352,17 @@
 							<td></td>
 							<td></td>
 						</tr>
+						<tr>
+						<td colspan=2 align=center>
+						<input type="submit" class=myButton value="수정"> <input
+						type="button" class=myButton value="취소" onclick="cancleBtn()">
+						</td>
+						</tr>
 					</table>
 
 				</fieldset>
 				<div align=right>
-					<input type="submit" class=myButton value="수정"> <input
-						type="button" class=myButton value="취소" onclick="cancleBtn()">
+					
 				</div>
 			</form>
 		</div>

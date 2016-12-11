@@ -207,17 +207,7 @@
 
          </td>
 
-         <td>
-            <li class="dropdown"><a href="#" id="dropdownCategoryMenu"
-               data-toggle="dropdown"><i class="fa fa-folder-open"></i><font
-                  color="black" size="4">업무평가</font><i class="caret"></i></a>
-               <ul class="dropdown-menu" role="menu"
-                  aria-labelledby="dropdownCategoryMenu">
-                  <li><a href="/category"><i class="fa fa-folder"></i>업무평가등록</a></li>
-                  <li><a href="/category/1"><i class="fa fa-folder"></i>업무평가조회</a></li>
-               </ul></li>
-
-         </td>
+         
 
          <td>
             <li class="dropdown"><a href="#" id="dropdownCategoryMenu"
