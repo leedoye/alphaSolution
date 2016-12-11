@@ -24,9 +24,6 @@
 
 		newEm = (project.member.EmployeeData) session.getAttribute("member");
 
-		out.println("password1" + newEm.password);
-		out.println("password2" + password);
-
 		if (!password.equals(""))
 			newEm.password = password;
 

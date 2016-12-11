@@ -5,6 +5,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.text.*"%>
 <%@ page import="project.member.EmployeeData"%>
+<%@ page import="project.workresult.*"%>
 <!-- 엔티티 클래스 및 컨트롤 추가 하는곳 여기는 기본셋팅이라 건들지 말것 -->
 <jsp:useBean id="memberControl" class="project.member.MemberControl" />
 <jsp:useBean id="em" class="project.member.EmployeeData" />
@@ -13,6 +14,9 @@
 
 <!-- 엔티티 클래스 및 컨트롤 추가 하는곳 여기에 추가할것 -->
 
+<jsp:useBean id="workControl"
+	class="project.workresult.WorkResultControl" />
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -40,107 +44,106 @@
 <!-- 자신의 javascript를 추가하는 곳 -->
 
 
-<script>
-	
-	function user()
-	{
-		
-	}
-	
-</script>
 </head>
 
 
 <body>
 	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
-	<header> <%
-      nor = (project.member.NormalMemberData) session.getAttribute("member");
+	<header>
+   <%
+      
+      mem = (project.member.MemberData) session.getAttribute("member");
       Integer o = (Integer) session.getAttribute("login");
       Integer isLogin = -1 ;
       
+        //out.println(id + " " + password) ;;
       
-      if ( o != null )
-      {
-         
+     if ( o != null )
+      {      
          isLogin = (Integer)session.getAttribute("login");
+         
+         if ( isLogin == 0 )
+         {
+            nor = (project.member.NormalMemberData) session.getAttribute("member");         
+         }
+         else
+         {
+            em = (project.member.EmployeeData) session.getAttribute("member");     
+         }
       }
       
-      
+   
       
       if ( isLogin == 0 || isLogin == 1) {
-         if (nor.memberID.charAt(0) == 'E' || nor.memberID.charAt(0) == 'A')
+         if ( isLogin == 0)
          {
-            
-         
+               
    %>
-	<div align="right">
-		<table clsss="innor" id="innor">
-			<tr align=center>
-				<td colspan=3><%= nor.name %> <% out.println( "( " + nor.ID + " ) 환영합니다.") ;%></td>
-
-			</tr>
-			<form action="../member/logout.jsp">
-				<tr align=center>
-					<td colspan=1><input class="myButton" type="submit"
-						value="로그아웃"></td>
-			</form>
-			<form action="../member/EmployeeMemberReadView.jsp">
-				<td colspan=1><input class="myButton" type="submit"
-					value="마이페이지"></td>
-			</form>
-			</tr>
-
-		</table>
-	</div>
-	<%      }
+   <div align="right">
+      <table clsss="innor" id="innor">
+         <tr align=center>
+            <td colspan=3> <%= nor.name %> <% out.println( "( " + nor.ID + " ) 환영합니다.") ;%></td>
+            
+         </tr>
+         <form action="../member/logout.jsp">
+         <tr align=center>
+            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
+         </form>
+         <form action="../member/NormalMemberReadView.jsp">
+            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
+         </form>
+         </tr>
+         
+      </table>
+   </div>
+   <%      }
          else
          {
             %>
-	<div align="right">
-		<table clsss="innor" id="innor">
-			<tr align=center>
-				<td colspan=3><%= nor.name %> <% out.println( "( " + nor.ID + " ) 환영합니다.") ;%></td>
-
-			</tr>
-			<form action="../member/logout.jsp">
-				<tr align=center>
-					<td colspan=1><input class="myButton" type="submit"
-						value="로그아웃"></td>
-			</form>
-			<form action="../member/NormalMemberReadView.jsp">
-				<td colspan=1><input class="myButton" type="submit"
-					value="마이페이지"></td>
-			</form>
-			</tr>
-
-		</table>
-	</div>
-	<%
+   <div align="right">
+      <table clsss="innor" id="innor">
+         <tr align=center>
+            <td colspan=3> <%= em.name %> <% out.println( "( " + em.ID + " ) 환영합니다.") ;%></td>
+            
+         </tr>
+         <form action="../member/logout.jsp">
+         <tr align=center>
+            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
+         </form>
+         <form action="../member/EmployeeMemberReadView.jsp">
+            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
+         </form>
+         </tr>
+         
+      </table>
+   </div>
+            <%
          }
       }
       else {
    %>
-	<div align="right">
-
-		<table>
-			<form action="../member/loginView2.jsp">
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="ID"></td>
-					<td><input class="myButton" type="submit" value="로그인"></td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td><input type="password" name="password"></td>
-			</form>
-			<form action="../member/RealNameAuthenticationTypeView.jsp">
-				<td><input class="myButton" type="submit" value="회원가입"></td>
-			</form>
-			</tr>
-		</table>
-	</div>
-	<% }
-   %> </header>
+      <div align="right">
+      
+      <table>
+      <form action="../member/loginView2.jsp">
+         <tr>
+            <td>아이디</td>
+            <td><input type="text" name="ID" value="s0001"></td>
+            <td><input class="myButton" type="submit" value="로그인"></td>
+         </tr>
+         <tr>
+            <td>비밀번호</td>
+            <td><input type="password" name="password" value="1234"></td>
+      </form>
+      <form action="../member/RealNameAuthenticationTypeView.jsp">
+            <td><input class="myButton" type="submit" value="회원가입"></td>
+      </form>
+         </tr>
+      </table>
+   </div>
+   <% }
+   %>
+   </header>
 
 	<!-- 여기서 부터 화면에 목록을 출력함 여기는 도예가 수정할 것임 수정되면 붙여넣으면됨 -->
 
@@ -283,10 +286,11 @@
 	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
 
 	<%
+	
 	ArrayList<EmployeeData> arr = (ArrayList<EmployeeData>) session.getAttribute("eArr");
 			
 				
-%>
+	%>
 
 	<div>
 		<form action="WorkResultCreateMemberFind.jsp">
@@ -295,9 +299,9 @@
 					<legend>직원정보조회</legend>
 					<table>
 						<tr>
-							<td>직원이름</td>
+							<th>직원이름</th>
 							<td><input type="text" name=name></td>
-							<td>핸드폰 번호</td>
+							<th>핸드폰 번호</th>
 							<td><input type="text" name=phoneNo></td>
 							<td><input type="submit" class="myButton" id=nameCheck
 								value="조회"></td>
@@ -315,7 +319,7 @@
 					<legend>회원정보</legend>
 					<table width=600px>
 						<tr>
-							<td>평가 일자</td>
+							<th>평가 일자</th>
 
 							<td>
 								<%
@@ -325,7 +329,7 @@
 		            out.println(today);
 					%>
 							</td>
-							<td>입사 일자</td>
+							<th>입사 일자</th>
 							<%
 								if ( arr != null )
 								{
@@ -341,12 +345,14 @@
 							
 						</tr>
 						<tr>
-							<td>성명</td>
+							<th>성명</th>
 							<%
 								if ( arr != null )
 								{
+									ArrayList<WorkResult> workArr = workControl.selectWorkResult(arr.get(0).memberID);
 									%>
-									<td><%= arr.get(0).name %></td>
+									<td><a method="get" href="WorkResultDetailReadView.jsp?memberID=<%=arr.get(0).memberID%>">
+			                      <%= arr.get(0).name %></a></td>
 									<%
 								}
 								else
@@ -354,7 +360,7 @@
 									%><td></td><%
 								}
 							%>
-							<td>소속/직급</td>
+							<th>소속/직급</th>
 							<%
 								if ( arr != null )
 								{
@@ -377,13 +383,13 @@
 					<legend>업무평가</legend>
 					<table>
 						<tr>
-							<td>항목</td>
-							<td>평가 항목</td>
-							<td>평가</td>
+							<th>항목</th>
+							<th>평가 항목</th>
+							<th>평가</th>
 						</tr>
 
 						<tr>
-							<td rowspan=8>업무 수행능력</td>
+							<th rowspan=8>업무 수행능력</th>
 							<td>직무와 관련된 지식을 숙지하고 있다.</td>
 							<td><input type="text" name=workResult1></td>
 						</tr>
@@ -431,7 +437,7 @@
 						</tr>
 
 						<tr>
-							<td rowspan=6>업무자세 및 인간관계</td>
+							<th rowspan=6>업무자세 및 인간관계</th>
 							<td>업무의 목표 달성을 위해 성실하게 일한다.</td>
 							<td><input type="text" name=workResult9></td>
 						</tr>
@@ -466,22 +472,23 @@
 							<td><input type="text" name=workResult14></td>
 						</tr>
 						<tr >
-							<td>
+							<th>
 								업무평가결과
-							</td>
+							</th>
 							<td align="center" colspan=2>
 							<textarea cols="60" rows="10" name="workData">
 							
 							</textarea>
 							</td>
 						</tr>
-
-					</table>
-					<div align=center>
-						<input type="submit" class="myButton" id="addBtn" value="등록">
-						<input type="button" class="myButton" id="cancleBtn"
+						<tr align=center>
+							<td colspan=2>
+							<input type="submit" class="myButton" id="addBtn" value="등록">
+							<input type="button" class="myButton" id="cancleBtn"
 							onclick="cancleBtn()" value="취소">
-					</div>
+							</td>
+						</tr>
+					</table>
 				</fieldset>
 			</div>
 		</form>

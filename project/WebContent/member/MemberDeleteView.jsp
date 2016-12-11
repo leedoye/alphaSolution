@@ -100,12 +100,12 @@
 		<table>
 			<form action="../member/loginView2.jsp">
 				<tr>
-					<td>아이디</td>
+					<th>아이디</th>
 					<td><input type="text" name="ID" value="s0001"></td>
 					<td><input class="myButton" type="submit" value="로그인"></td>
 				</tr>
 				<tr>
-					<td>비밀번호</td>
+					<th>비밀번호</th>
 					<td><input type="password" name="password" value="1234"></td>
 			</form>
 			<form action="../member/RealNameAuthenticationTypeView.jsp">
@@ -259,30 +259,30 @@
 						if (isLogin == 0) {
 					%>
 					<tr>
-						<td>성명</td>
+						<th>성명</th>
 						<td name=name><%=nor.name%></td>
 					</tr>
 					<tr>
-						<td>회원 아이디</td>
+						<th>회원 아이디</th>
 						<td name=ID><%=nor.ID%></td>
 					</tr>
 					<tr>
-						<td>현재 비밀번호</td>
+						<th>현재 비밀번호</th>
 						<td><input type="password" name=password></td>
 					</tr>
 					<%
 						} else {
 					%>
 					<tr>
-						<td>성명</td>
+						<th>성명</th>
 						<td name=name><%=em.name%></td>
 					</tr>
 					<tr>
-						<td>회원 아이디</td>
+						<th>회원 아이디</th>
 						<td name=ID><%=em.ID%></td>
 					</tr>
 					<tr>
-						<td>현재 비밀번호</td>
+						<th>현재 비밀번호</th>
 						<td><input type="password" name=password></td>
 					</tr>
 					<%

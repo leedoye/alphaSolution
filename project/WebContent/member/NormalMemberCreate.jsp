@@ -3,7 +3,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
-<jsp:useBean id="info" class="project.member.NormalMemberData" />
+<jsp:useBean id="nor" class="project.member.NormalMemberData" />
 <jsp:useBean id="memberControl" class="project.member.MemberControl" />
 <jsp:useBean id="em" class="project.member.EmployeeData" />
 <jsp:useBean id="account" class="project.member.Account" />
@@ -13,7 +13,9 @@
 	class="project.operateSubject.OperateSubjectData" />
 <jsp:useBean id="operateSubjectControl"
 	class="project.operateSubject.OperateSubjectControl" />
-<jsp:setProperty name="info" property="*" />
+	
+	
+<jsp:setProperty name="nor" property="*" />
 <jsp:setProperty name="em" property="*" />
 <jsp:setProperty name="account" property="*" />
 <jsp:setProperty name="career" property="*" />
@@ -30,8 +32,8 @@
 	%>
 	<%
 		if (value.equals("0")) {
-			info.memberID = "S" + memberControl.sCount++;
-			memberControl.insertNormalMember(info);
+			nor.memberID = "S" + memberControl.sCount++;
+			memberControl.insertNormalMember(nor);
 		} else {
 			em.memberID = "E" + memberControl.eCount++;
 

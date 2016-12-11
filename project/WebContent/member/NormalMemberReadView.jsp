@@ -26,90 +26,101 @@
 
 </head>
 <body>
-	<header> <%
- 	nor = (project.member.NormalMemberData) session.getAttribute("member");
- 	Integer o = (Integer) session.getAttribute("login");
- 	Integer isLogin = -1;
-
- 	if (o != null) {
-
- 		isLogin = (Integer) session.getAttribute("login");
- 	}
-
- 	if (isLogin == 0 || isLogin == 1) {
- 		if (nor.memberID.charAt(0) == 'E' || nor.memberID.charAt(0) == 'A') {
- %>
-	<div align="right">
-		<table clsss="innor" id="innor">
-			<tr align=center>
-				<td colspan=3><%=nor.name%> <%
- 	out.println("( " + nor.ID + " ) 환영합니다.");
- %></td>
-
-			</tr>
-			<form action="../member/logout.jsp">
-				<tr align=center>
-					<td colspan=1><input class="myButton" type="submit"
-						value="로그아웃"></td>
-			</form>
-			<form action="../member/EmployeeMemberReadView.jsp">
-				<td colspan=1><input class="myButton" type="submit"
-					value="마이페이지"></td>
-			</form>
-			</tr>
-
-		</table>
-	</div>
-	<%
-		} else {
-	%>
-	<div align="right">
-		<table clsss="innor" id="innor">
-			<tr align=center>
-				<td colspan=3><%=nor.name%> <%
- 	out.println("( " + nor.ID + " ) 환영합니다.");
- %></td>
-
-			</tr>
-			<form action="../member/logout.jsp">
-				<tr align=center>
-					<td colspan=1><input class="myButton" type="submit"
-						value="로그아웃"></td>
-			</form>
-			<form action="../member/NormalMemberReadView.jsp">
-				<td colspan=1><input class="myButton" type="submit"
-					value="마이페이지"></td>
-			</form>
-			</tr>
-
-		</table>
-	</div>
-	<%
-		}
-		} else {
-	%>
-	<div align="right">
-
-		<table>
-			<form action="../member/loginView2.jsp">
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="ID"></td>
-					<td><input class="myButton" type="submit" value="로그인"></td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td><input type="password" name="password"></td>
-			</form>
-			<form action="../member/RealNameAuthenticationTypeView.jsp">
-				<td><input class="myButton" type="submit" value="회원가입"></td>
-			</form>
-			</tr>
-		</table>
-	</div>
-	<%
-		}
-	%> </header>
+	<header>
+   <%
+      
+      mem = (project.member.MemberData) session.getAttribute("member");
+      Integer o = (Integer) session.getAttribute("login");
+      Integer isLogin = -1 ;
+      
+        //out.println(id + " " + password) ;;
+      
+     if ( o != null )
+      {      
+         isLogin = (Integer)session.getAttribute("login");
+         
+         if ( isLogin == 0 )
+         {
+            nor = (project.member.NormalMemberData) session.getAttribute("member");         
+         }
+         else
+         {
+            em = (project.member.EmployeeData) session.getAttribute("member");     
+         }
+      }
+      
+   
+      
+      if ( isLogin == 0 || isLogin == 1) {
+         if ( isLogin == 0)
+         {
+               
+   %>
+   <div align="right">
+      <table clsss="innor" id="innor">
+         <tr align=center>
+            <td colspan=3> <%= nor.name %> <% out.println( "( " + nor.ID + " ) 환영합니다.") ;%></td>
+            
+         </tr>
+         <form action="../member/logout.jsp">
+         <tr align=center>
+            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
+         </form>
+         <form action="../member/NormalMemberReadView.jsp">
+            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
+         </form>
+         </tr>
+         
+      </table>
+   </div>
+   <%      }
+         else
+         {
+            %>
+   <div align="right">
+      <table clsss="innor" id="innor">
+         <tr align=center>
+            <td colspan=3> <%= em.name %> <% out.println( "( " + em.ID + " ) 환영합니다.") ;%></td>
+            
+         </tr>
+         <form action="../member/logout.jsp">
+         <tr align=center>
+            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
+         </form>
+         <form action="../member/EmployeeMemberReadView.jsp">
+            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
+         </form>
+         </tr>
+         
+      </table>
+   </div>
+            <%
+         }
+      }
+      else {
+   %>
+      <div align="right">
+      
+      <table>
+      <form action="../member/loginView2.jsp">
+         <tr>
+            <td>아이디</td>
+            <td><input type="text" name="ID" value="s0001"></td>
+            <td><input class="myButton" type="submit" value="로그인"></td>
+         </tr>
+         <tr>
+            <td>비밀번호</td>
+            <td><input type="password" name="password" value="1234"></td>
+      </form>
+      <form action="../member/RealNameAuthenticationTypeView.jsp">
+            <td><input class="myButton" type="submit" value="회원가입"></td>
+      </form>e
+         </tr>
+      </table>
+   </div>
+   <% }
+   %>
+   </header>
 	<nav>
 	<table width="100%">
 		<tr align="center">
@@ -251,67 +262,67 @@
 					<legend>회원정보</legend>
 					<table id=NormalMemberReadTable>
 						<tr>
-							<td>회원 번호</td>
+							<th>회원 번호</th>
 							<td><%=nor.memberID%></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>로그인 아이디</td>
+							<th>로그인 아이디</th>
 							<td><%=nor.ID%></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>비밀번호</td>
+							<th>비밀번호</th>
 							<td><%=nor.password%></td>
 							<td></td>
 							<td></td>
 						</tr>
 
 						<tr>
-							<td>성명</td>
+							<th>성명</th>
 							<td><%=nor.name%></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>거주지주소</td>
+							<th>거주지주소</th>
 							<td colspan=3><%=nor.address%></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>이메일</td>
+							<th>이메일</th>
 							<td colspan=2><%=nor.email%></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>휴대폰 번호</td>
+							<th>휴대폰 번호</th>
 							<td><%=nor.phoneNo%></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>근무회사명</td>
+							<th>근무회사명</th>
 							<td><%=nor.centerName%></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>부서명</td>
+							<th>부서명</th>
 							<td><%=nor.department%></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>직위</td>
+							<th>직위</th>
 							<td><%=nor.position%></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>직무</td>
+							<th>직무</th>
 							<td><%=nor.duty%></td>
 							<td></td>
 							<td></td>

@@ -591,7 +591,7 @@ try {
 
 	}
 	
-	public ArrayList<EmployeeData> selectEmployeeData()
+	public ArrayList<EmployeeData> selectEmployeeDatas()
 	{
 		ArrayList<EmployeeData> arr = new ArrayList<EmployeeData>();
 		
@@ -659,13 +659,13 @@ try {
 
 	}
 	
-	public ArrayList<EmployeeData> selectEmployeeData(String name)
+	public ArrayList<EmployeeData> selectEmployeeDatas(String name)
 	{
 		ArrayList<EmployeeData> arr = new ArrayList<EmployeeData>();
 		
 		try
         {
-			String selectQuery = "SELECT * FROM `" + dbTable +"`" ;
+			String selectQuery = "SELECT * FROM `" + dbTable +"` where name = '" + name + "'" ;
 			
             //질의를 할 Statement 만들기 
             stmt = con.createStatement();

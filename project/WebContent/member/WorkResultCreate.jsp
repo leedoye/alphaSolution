@@ -51,17 +51,17 @@
 	for ( int i = 0 ; i <= 13; ++i )
 	{
 		String workName = "workResult" + (i+1) ;
-		out.println(workName);
+		
 		workResult[i] = request.getParameter(workName);
 		
-		out.println(workResult[i]);
+		
 		sum += Integer.valueOf(workResult[i]);
 	}
 	WorkResult work = new WorkResult();
 	int count = workControl.getCount(arr.get(0).memberID);
 	
 	
-	work.resultNo = count;
+	work.resultNo = count+1;
 	work.memberID = arr.get(0).memberID;
 	work.resultDate = today;
 	work.workData = workData;

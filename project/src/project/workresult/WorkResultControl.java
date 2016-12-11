@@ -177,6 +177,6 @@ public class WorkResultControl {
 		WorkResultControl wc = new WorkResultControl();
 		int count = wc.getCount("E0000001");
 		
-		System.out.println(count);
+		System.out.println(count+1);
 	}
 }

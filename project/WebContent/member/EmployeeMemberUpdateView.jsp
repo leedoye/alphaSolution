@@ -26,90 +26,101 @@
 </head>
 <body>
 
-	<header> <%
- 	em = (project.member.EmployeeData) session.getAttribute("member");
- 	Integer o = (Integer) session.getAttribute("login");
- 	Integer isLogin = -1;
-
- 	if (o != null) {
-
- 		isLogin = (Integer) session.getAttribute("login");
- 	}
-
- 	if (isLogin == 0 || isLogin == 1) {
- 		if (em.memberID.charAt(0) == 'E' || em.memberID.charAt(0) == 'A') {
- %>
-	<div align="right">
-		<table clsss="innor" id="innor">
-			<tr align=center>
-				<td colspan=3><%=em.name%> <%
- 	out.println("( " + em.ID + " ) 환영합니다.");
- %></td>
-
-			</tr>
-			<form action="../member/logout.jsp">
-				<tr align=center>
-					<td colspan=1><input class="myButton" type="submit"
-						value="로그아웃"></td>
-			</form>
-			<form action="../member/EmployeeMemberReadView.jsp">
-				<td colspan=1><input class="myButton" type="submit"
-					value="마이페이지"></td>
-			</form>
-			</tr>
-
-		</table>
-	</div>
-	<%
-		} else {
-	%>
-	<div align="right">
-		<table clsss="innor" id="innor">
-			<tr align=center>
-				<td colspan=3><%=em.name%> <%
- 	out.println("( " + em.ID + " ) 환영합니다.");
- %></td>
-
-			</tr>
-			<form action="../member/logout.jsp">
-				<tr align=center>
-					<td colspan=1><input class="myButton" type="submit"
-						value="로그아웃"></td>
-			</form>
-			<form action="../member/NormalMemberReadView.jsp">
-				<td colspan=1><input class="myButton" type="submit"
-					value="마이페이지"></td>
-			</form>
-			</tr>
-
-		</table>
-	</div>
-	<%
-		}
-		} else {
-	%>
-	<div align="right">
-
-		<table>
-			<form action="../member/loginView2.jsp">
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="ID"></td>
-					<td><input class="myButton" type="submit" value="로그인"></td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td><input type="password" name="password"></td>
-			</form>
-			<form action="../member/RealNameAuthenticationTypeView.jsp">
-				<td><input class="myButton" type="submit" value="회원가입"></td>
-			</form>
-			</tr>
-		</table>
-	</div>
-	<%
-		}
-	%> </header>
+	<header>
+   <%
+      
+      mem = (project.member.MemberData) session.getAttribute("member");
+      Integer o = (Integer) session.getAttribute("login");
+      Integer isLogin = -1 ;
+      
+        //out.println(id + " " + password) ;;
+      
+     if ( o != null )
+      {      
+         isLogin = (Integer)session.getAttribute("login");
+         
+         if ( isLogin == 0 )
+         {
+            nor = (project.member.NormalMemberData) session.getAttribute("member");         
+         }
+         else
+         {
+            em = (project.member.EmployeeData) session.getAttribute("member");     
+         }
+      }
+      
+   
+      
+      if ( isLogin == 0 || isLogin == 1) {
+         if ( isLogin == 0)
+         {
+               
+   %>
+   <div align="right">
+      <table clsss="innor" id="innor">
+         <tr align=center>
+            <td colspan=3> <%= nor.name %> <% out.println( "( " + nor.ID + " ) 환영합니다.") ;%></td>
+            
+         </tr>
+         <form action="../member/logout.jsp">
+         <tr align=center>
+            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
+         </form>
+         <form action="../member/NormalMemberReadView.jsp">
+            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
+         </form>
+         </tr>
+         
+      </table>
+   </div>
+   <%      }
+         else
+         {
+            %>
+   <div align="right">
+      <table clsss="innor" id="innor">
+         <tr align=center>
+            <td colspan=3> <%= em.name %> <% out.println( "( " + em.ID + " ) 환영합니다.") ;%></td>
+            
+         </tr>
+         <form action="../member/logout.jsp">
+         <tr align=center>
+            <td colspan=1 ><input class="myButton" type="submit" value="로그아웃"></td>
+         </form>
+         <form action="../member/EmployeeMemberReadView.jsp">
+            <td colspan=1 ><input class="myButton" type="submit" value="마이페이지"></td>
+         </form>
+         </tr>
+         
+      </table>
+   </div>
+            <%
+         }
+      }
+      else {
+   %>
+      <div align="right">
+      
+      <table>
+      <form action="../member/loginView2.jsp">
+         <tr>
+            <td>아이디</td>
+            <td><input type="text" name="ID" value="s0001"></td>
+            <td><input class="myButton" type="submit" value="로그인"></td>
+         </tr>
+         <tr>
+            <td>비밀번호</td>
+            <td><input type="password" name="password" value="1234"></td>
+      </form>
+      <form action="../member/RealNameAuthenticationTypeView.jsp">
+            <td><input class="myButton" type="submit" value="회원가입"></td>
+      </form>e
+         </tr>
+      </table>
+   </div>
+   <% }
+   %>
+   </header>
 	<nav>
 	<table width="100%">
 		<tr align="center">
@@ -249,19 +260,19 @@
 					<table id=memberCreateTable>
 
 						<tr>
-							<td>로그인 아이디</td>
+							<th>로그인 아이디</th>
 							<td><input type="text" name=ID value=<%=em.ID%>></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>비밀번호</td>
+							<th>비밀번호</th>
 							<td><input type="password" name=password></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>비밀번호확인</td>
+							<th>비밀번호확인</th>
 							<td><input type="password" name=checkPassword></td>
 							<td></td>
 							<td></td>
@@ -274,14 +285,14 @@
 					<table>
 
 						<tr>
-							<td>한글성명</td>
+							<th>한글성명</th>
 							<td><input type="text" name=name value=<%=em.name%>></td>
-							<td>영문 성명</td>
+							<th>영문 성명</th>
 							<td><input type="text" name=enName value=<%=em.enName%>></td>
 						</tr>
 
 						<tr>
-							<td>성별</td>
+							<th>성별</th>
 							<td colspan=2><input type="radio" id=genderStatus
 								name=genderStatus
 								<%if (em.genderStatus == 1) {
@@ -297,7 +308,7 @@
 						</tr>
 
 						<tr>
-							<td>주민등록지주소</td>
+							<th>주민등록지주소</th>
 							<td colspan=3><input type="text" name=truthResidence
 								style="width: 500px;" value=<%=em.truthResidence%>></td>
 							<td></td>
@@ -305,27 +316,27 @@
 						</tr>
 
 						<tr>
-							<td>거주지주소</td>
+							<th>거주지주소</th>
 							<td colspan=3><input type="text" name=address
 								style="width: 500px;" value=<%=em.address%>></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>집 전화번호</td>
+							<th>집 전화번호</th>
 							<td><input type="text" name=homePhoneNo
 								value=<%=em.homePhoneNo%>></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>휴대폰 번호</td>
+							<th>휴대폰 번호</th>
 							<td><input type="text" name=phoneNo value=<%=em.phoneNo%>></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>비상연락 전화번호번호</td>
+							<th>비상연락 전화번호번호</th>
 							<td><input type="text" name=emergencyContact
 								value=<%=em.emergencyContact%>"></td>
 							<td></td>
@@ -333,7 +344,7 @@
 						</tr>
 
 						<tr>
-							<td>이메일</td>
+							<th>이메일</th>
 							<td colspan=2><input type="text" name=email
 								style="width: 300px;" value=<%=em.email%>></td>
 							<td><SELECT id="emailList">
@@ -353,13 +364,13 @@
 					<legend>계좌정보변경</legend>
 					<table>
 						<tr>
-							<td>은행코드</td>
+							<th>은행코드</th>
 							<td><input type="text" name=bankCode></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>계좌번호</td>
+							<th>계좌번호</th>
 							<td><input type="text" name=accountNumber></td>
 							<td></td>
 							<td></td>
@@ -374,27 +385,27 @@
 					<table>
 
 						<tr>
-							<td>근무센터명</td>
+							<th>근무센터명</th>
 							<td><input type="text" name=centerName
 								value=<%=em.centerDepartmentName%>></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>강의과목명</td>
+							<th>강의과목명</th>
 							<td><input type="text" name=responsibilitySubject></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>경력명</td>
-							<td>경력 유형구분</td>
-							<td>경력설명</td>
+							<th>경력명</th>
+							<th>경력 유형구분</th>
+							<th>경력설명</th>
 							<td></td>
 						</tr>
 						<tr>
-							<td>정보처리기사</td>
-							<td>자격증</td>
+							<th>정보처리기사</th>
+							<th>자격증</th>
 							<td>-</td>
 							<td></td>
 						</tr>
