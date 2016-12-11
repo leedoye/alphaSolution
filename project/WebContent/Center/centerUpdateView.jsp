@@ -21,7 +21,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <!-- 홈페이지 제목 부분  -->
-<title>센터등록</title>
+<title>센터수정</title>
 
 <!-- 기본셋팅 값 건들지말것 -->
 <link rel="stylesheet"
@@ -330,6 +330,7 @@
 				<tr>
 					<td colspan=4 align="center" >
 						<input type="hidden" name=flag id="flag" value="update">
+						<input type="hidden" name=centerNo value=<%=center.centerNo %> >
 						<input type="submit" class="myButton" value="등록"> 
 						<input type="button" onclick="cancleBtn()" class="myButton" value="취소">
 					</td>

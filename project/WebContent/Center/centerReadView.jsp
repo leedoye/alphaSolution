@@ -22,7 +22,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <!-- 홈페이지 제목 부분  -->
-<title>센터등록</title>
+<title>센터조회</title>
 
 <!-- 기본셋팅 값 건들지말것 -->
 <link rel="stylesheet"
@@ -44,11 +44,10 @@
 	<!-- 여기서부터 jsp화면 출력하는 부분 건들지 말것  header에서 부터 드래그해서 복사할것-->
 	<header>
    <%
-      
       mem = (project.member.MemberData) session.getAttribute("member");
       Integer o = (Integer) session.getAttribute("login");
       Integer isLogin = -1 ;
-      
+    
         //out.println(id + " " + password) ;;
 	      
      if ( o != null )
@@ -75,7 +74,7 @@
     	 </script>
     	 <%
      }
-     if( mem.memberID.indexOf("A") == -1 )
+     if( mem!=null && mem.memberID.charAt(0) != 'A'  )
      {
     	 %>
     	 <script>

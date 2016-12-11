@@ -41,8 +41,10 @@
 	<%
 	}
 	
-	center.centerNo = String.valueOf(centerControl.centerID);
-	centerControl.centerID++;
+	center.centerNo = String.valueOf(centerControl.getCenterNo());
+	center.memberID = memberID;
+	center.centerName = request.getParameter("centerName");
+	center.localCode = request.getParameter("localCode");
 	
 	centerControl.insertCenter(center);
 	
@@ -51,7 +53,7 @@
 	<!-- 데이터 처리후 원래의 View로 돌려줄것 -->
 	<script type="text/javascript">
 	alert("등록완료");
-	location.href="centerCreateView.jsp";
+	location.href="centerReadView.jsp";
 </script>
 
 </body>

@@ -65,11 +65,13 @@
          
          if ( isLogin == 0 )
          {
-            nor = (project.member.NormalMemberData) session.getAttribute("member");         
+            nor = (project.member.NormalMemberData) session.getAttribute("member"); 
+            mem.memberID = nor.memberID;
          }
          else
          {
-            em = (project.member.EmployeeData) session.getAttribute("member");     
+            em = (project.member.EmployeeData) session.getAttribute("member"); 
+            mem.memberID = em.memberID;
          }
       }
       
@@ -294,14 +296,14 @@
 				<tr align=center> <td colspan=4>&nbsp;</td> </tr>
 				
 				<tr bgcolor="silver">
-					<th align="center">참여신청자</td>
-					<th colspan=2></td>
+					<th colspan=2 align="center">참여신청자</td>
 				</tr>
 
 				
 				<%
+				
 				int communityNo = Integer.valueOf(request.getParameter("communityNo"));
-
+				
 				ArrayList<project.community.CommunityParticipant> participants = communityParticipantControl.selectCommunityParticipants(communityNo);
 				if( participants.size() == 0 )
 					;//href?로 모임방 상세조회화면으로 이동해주기!!!
@@ -312,7 +314,9 @@
 		                  %>
 						<tr>
 							<td align="center"><%=mem.name %></td>
-							<td align="center" colspan=2><a method="get" href="CommunityParticipantRegisterView.jsp?value=<%=participants.get(i).memberID%>">등록</a></td>
+							<td align="center" colspan=2>
+							<input type=hidden id=communityNo value=<%=communityNo%>>
+							<a method="get" href="CommunityParticipantRegisterView.jsp?value=<%=participants.get(i).memberID%>&communityNo=<%=communityNo%>">등록</a></td>
 						</tr>
 						<%
                  	}
@@ -334,7 +338,6 @@
 	
 		<%
 		String memberID = request.getParameter("value");
-		out.print(memberID);
 		communityparticipant.communityNo = communityNo;
 		communityparticipant.memberID = memberID;
 		communityparticipant.participationSeparation = 1;
@@ -345,7 +348,7 @@
 		<!-- 데이터 처리후 원래의 View로 돌려줄것 -->
 		<script type="text/javascript">
 			alert("참여 신청자 등록 완료");
-			//location.href="CommunityReadView.jsp";
+			location.href='CommunityReadView.jsp';
 		</script>
 	</div>
 	<%} %>

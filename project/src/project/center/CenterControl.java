@@ -16,7 +16,7 @@ public class CenterControl {
 	static final String driverName = "com.mysql.jdbc.Driver";
 	static final String dbURL = "jdbc:mysql://localhost:3306/software";
 
-	public static int centerID = 1;
+	public static int centerNo = 1;
 	
 	Connection con = null;
 	Statement stmt = null;
@@ -31,31 +31,44 @@ public class CenterControl {
 
 			Class.forName(driverName);
 			con = DriverManager.getConnection(dbURL, id, passwd);
-			
-			int max = -1 ;
-			 String selectQuery = "SELECT * FROM `"+ dbTable + "`";
-	         
-           //질의를 할 Statement 만들기 
-           stmt = con.createStatement();
-           
-           rs = stmt.executeQuery(selectQuery); //조회 쿼리결과를 rs에 넣음
-           
-           //rs의 내용을 가져옴
-           while (rs.next())
-           {
-              if ( max < rs.getInt("centerID"))
-                 max = rs.getInt("centerID");
-           }
-           
-           if( max == -1 )
-        	   centerID = 1;
-           else
-        	   centerID = max;
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
+	}
+	
+	public void setCenterNo() {
+		int max = -1;
+		String selectQuery = "SELECT * FROM `" + dbTable + "`";
+		try {
+		// 질의를 할 Statement 만들기
+		stmt = con.createStatement();
+
+		rs = stmt.executeQuery(selectQuery); // 조회 쿼리결과를 rs에 넣음
+
+		// rs의 내용을 가져옴
+		while (rs.next()) {
+			if (max < rs.getInt("centerNo")) {
+				max = rs.getInt("centerNo");
+			}
+		}
+
+		if (max == -1)
+			centerNo = 1;
+		else
+			centerNo = ++max;
+		System.out.println("centerNo : " + centerNo);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public int getCenterNo(){
+		setCenterNo();
+		
+		return centerNo;
 	}
 
 	public void insertCenter(Center center) {
@@ -166,7 +179,7 @@ public class CenterControl {
 		try {
 			String selectQuery = "SELECT * FROM `" + dbTable + "` where centerNo = '" + centerNo + "'";
 
-			
+			System.out.println(centerNo);
 			stmt = con.createStatement();
 
 			rs = stmt.executeQuery(selectQuery); // 議고쉶 荑쇰━寃곌낵瑜� rs�뿉 �꽔�쓬
@@ -191,7 +204,7 @@ public class CenterControl {
 		CenterControl centerControl = new CenterControl();
 		Center center = new Center();
 		/*
-		center.centerNo = "0000";
+		center.centerNo = "1";
 		center.memberID = "E0000001";
 		center.centerName = "알파아카데미쓰";
 		center.localCode = "001";
@@ -205,7 +218,7 @@ public class CenterControl {
 			System.out.println(center1.centerName);
 		}
 		*/
-		center = centerControl.selectCenter("0002");
+		center = centerControl.selectCenter("2");
 		System.out.println(center.centerName);
 	}
 }
