@@ -256,7 +256,7 @@
 	<div >
 
 		<div align=center>
-			<form id=EmployeeMemberReadForm action="EmployeeMemberUpdateView.jsp">
+			<form id=EmployeeMemberReadForm action="EmployeeMemberUpdateView.jsp" >
 				<fieldset>
 					<legend>직원정보</legend>
 					<table width=600px border-top=1 cellspacing=0 cellpadding="10">

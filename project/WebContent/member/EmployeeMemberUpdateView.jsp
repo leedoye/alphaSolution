@@ -294,11 +294,11 @@
 						<tr>
 							<th>성별</th>
 							<td colspan=2><input type="radio" id=genderStatus value=1
-								name=genderStatus
+								name=gender
 								<%if (em.genderStatus == 1) {
 				out.write("checked");
 			}%>>
-								남자 <input type="radio" id=genderStatus name=genderStatus value=0
+								남자 <input type="radio" id=genderStatus name=gender value=0
 								<%if (em.genderStatus == 0) {
 				out.write("checked");
 			}%>>

@@ -317,9 +317,9 @@
 			<tr>
 				<th>*성별</th>
 				<td colspan=2> 
-					<input type="radio" id=genderStatus name=genderStatus > 남자
+					<input type="radio" id=genderStatus name=genderStatus value=1> 남자
 				</td>
-				<td><input type="radio" id=genderStatus name=genderStatus > 여자</td>
+				<td><input type="radio" id=genderStatus name=genderStatus value=0> 여자</td>
 				<td>
 					
 				</td>
